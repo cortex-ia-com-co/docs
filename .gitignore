@@ -5,7 +5,6 @@ build/
 
 # Node modules
 node_modules/
-package-lock.json
 
 # Ruby/Bundler
 .bundle/
