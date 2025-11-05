@@ -7,7 +7,7 @@
 
 /* Personalizar menú lateral */
 .nav-panel-menu {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 .nav-list {
@@ -32,11 +32,11 @@
 
 /* Traducir textos comunes */
 .nav-panel-explore .context .title::before {
-  content: 'Componente: ';
+  content: "Componente: ";
 }
 
 .nav-panel-explore .version::before {
-  content: 'Versión: ';
+  content: "Versión: ";
 }
 
 /* Ajustar espacio del menú */
@@ -52,15 +52,8 @@
 
 /* Traducir elementos de navegación */
 .navbar-brand .navbar-item::after {
-  content: 'Inicio';
+  content: "Inicio";
   display: inline;
-}
-
-.navbar-burger::after {
-  content: 'Menú';
-  position: absolute;
-  font-size: 0.8rem;
-  bottom: 0;
 }
 
 /* Ocultar textos en inglés */
@@ -68,4 +61,3 @@
 .nav-panel-menu h3 span {
   display: none;
 }
-
