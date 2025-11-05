@@ -1,2 +1,71 @@
 .edit-this-page { display: none !important; }
 
+/* Ocultar botón de descarga */
+.navbar-item .button.is-primary {
+  display: none !important;
+}
+
+/* Personalizar menú lateral */
+.nav-panel-menu {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.nav-list {
+  padding-left: 0.5rem;
+}
+
+/* Personalizar enlaces del menú */
+.nav-item .nav-link {
+  color: #333;
+  transition: color 0.2s;
+}
+
+.nav-item .nav-link:hover {
+  color: #0066cc;
+}
+
+/* Estilo para el elemento activo */
+.nav-item.is-current-page > .nav-link {
+  color: #0066cc;
+  font-weight: 600;
+}
+
+/* Traducir textos comunes */
+.nav-panel-explore .context .title::before {
+  content: 'Componente: ';
+}
+
+.nav-panel-explore .version::before {
+  content: 'Versión: ';
+}
+
+/* Ajustar espacio del menú */
+.nav-menu {
+  padding: 1rem;
+}
+
+/* Mejorar legibilidad de títulos */
+.doc h1, .doc h2, .doc h3 {
+  color: #2c3e50;
+  margin-top: 2rem;
+}
+
+/* Traducir elementos de navegación */
+.navbar-brand .navbar-item::after {
+  content: 'Inicio';
+  display: inline;
+}
+
+.navbar-burger::after {
+  content: 'Menú';
+  position: absolute;
+  font-size: 0.8rem;
+  bottom: 0;
+}
+
+/* Ocultar textos en inglés */
+.navbar-brand .navbar-item span,
+.nav-panel-menu h3 span {
+  display: none;
+}
+
