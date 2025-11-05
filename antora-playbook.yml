@@ -1,6 +1,7 @@
 site:
   title: Documentación
   start_page: ROOT::index.adoc
+  url: https://cortex-ia-com-co.github.io/docs
 antora:
   extensions:
     - '@antora/lunr-extension'
