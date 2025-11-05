@@ -16,7 +16,7 @@ docs/
 │   ├── operator-playbook.yml
 │   ├── admin-playbook.yml
 │   ├── superuser-playbook.yml
-│   ├── implementation-playbook.yml
+│   ├── integration-playbook.yml
 │   └── developer-playbook.yml
 ├── user/                        # Manual de Usuario
 │   ├── antora.yml
@@ -42,7 +42,7 @@ docs/
 │       ├── nav.adoc
 │       └── pages/
 │           └── index.adoc
-├── implementation/              # Manual de Implementación
+├── integration/                # Manual de Integración
 │   ├── antora.yml
 │   └── modules/ROOT/
 │       ├── nav.adoc
@@ -71,7 +71,7 @@ npm run build:user           # Manual de Usuario
 npm run build:operator       # Manual del Operador
 npm run build:admin          # Manual del Administrador
 npm run build:superuser      # Manual del Super Usuario
-npm run build:implementation # Manual de Implementación
+npm run build:integration # Manual de Integración
 npm run build:developer     # Manual del Desarrollador
 npm run build:all           # Construir todos los proyectos por separado
 ```
@@ -85,7 +85,7 @@ npm run preview:user          # http://localhost:8080
 npm run preview:operator      # http://localhost:8081
 npm run preview:admin         # http://localhost:8082
 npm run preview:superuser     # http://localhost:8083
-npm run preview:implementation # http://localhost:8084
+npm run preview:integration # http://localhost:8084
 npm run preview:developer    # http://localhost:8085
 ```
 
@@ -109,7 +109,7 @@ Cada manual es un proyecto completamente independiente de Antora:
 - **operator**: Manual del Operador - Documentación para operadores del día a día
 - **admin**: Manual del Administrador - Documentación para administradores del sistema
 - **superuser**: Manual del Super Usuario - Documentación para super usuarios con acceso completo
-- **implementation**: Manual de Implementación - Guía de instalación y configuración
+- **integration**: Manual de Integración - Guía de instalación y configuración
 - **developer**: Manual del Desarrollador - Documentación técnica y de desarrollo
 
 Cada proyecto puede ser construido, desplegado y servido de forma completamente independiente.

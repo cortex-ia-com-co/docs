@@ -34,11 +34,11 @@ content:
       edit_url: ~
     - url: .
       branches: HEAD
-      start_path: implementation
+      start_path: integration
       edit_url: ~
 asciidoc:
   attributes:
-    page-component-sort-order: ROOT,user,operator,admin,sudo,developer,implementation
+  page-component-sort-order: ROOT,user,operator,admin,sudo,developer,integration
     doctype: book
 ui:
   bundle:

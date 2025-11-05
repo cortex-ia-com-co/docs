@@ -6,7 +6,7 @@
   "scripts": {
     "build": "antora --fetch antora-playbook.yml",
     "build:local": "antora antora-playbook.yml",
-    "build:all": "npm run build:user && npm run build:operator && npm run build:admin && npm run build:superuser && npm run build:implementation && npm run build:developer",
+  "build:all": "npm run build:user && npm run build:operator && npm run build:admin && npm run build:superuser && npm run build:integration && npm run build:developer",
     "preview": "antora --fetch antora-playbook.yml && npx http-server build/site -p 8080"
   },
   "keywords": [

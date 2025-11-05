@@ -1,1 +1,1 @@
-* xref:index.adoc[Inicio]
+* xref:../integration/modules/ROOT/pages/index.adoc[Manual de Integración (migrado)]

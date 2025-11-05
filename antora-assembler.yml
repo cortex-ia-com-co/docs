@@ -14,7 +14,7 @@ asciidoc:
     encoding: utf-8
     lang: es
     docencoding: utf-8
-    page-component-sort-order: ROOT,user,operator,admin,sudo,developer,implementation
+  page-component-sort-order: ROOT,user,operator,admin,sudo,developer,integration
 build:
   command: bundle exec asciidoctor-pdf
 

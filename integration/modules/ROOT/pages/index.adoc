@@ -1,0 +1,12 @@
+```plaintext
+= Manual de Integración
+
+Este es el manual de integración para UnoSportClub.
+
+Bienvenido al manual de integración. Este documento guía el proceso de instalación y configuración inicial del sistema.
+
+== Introducción
+
+Contenido del manual de integración...
+
+```
