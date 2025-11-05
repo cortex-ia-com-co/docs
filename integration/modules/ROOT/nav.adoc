@@ -1,4 +1,1 @@
-```plaintext
 * xref:index.adoc[Inicio]
-
-```

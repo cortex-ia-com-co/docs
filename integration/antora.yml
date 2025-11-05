@@ -1,4 +1,3 @@
-```yaml
 name: integration
 title: Manual de Integración
 version: ~
@@ -11,5 +10,3 @@ asciidoc:
     lang: es
 nav:
 - modules/ROOT/nav.adoc
-
-```
