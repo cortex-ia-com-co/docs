@@ -1,0 +1,92 @@
+= Gestión de Pagos
+
+Administración y seguimiento de todos los pagos del sistema.
+
+== Ver Pagos
+
+La lista de pagos muestra todas las transacciones realizadas:
+
+* Fecha y hora
+* Cliente
+* Reserva asociada
+* Monto
+* Método de pago
+* Estado
+
+== Filtros y Búsqueda
+
+Utiliza los filtros para encontrar pagos específicos:
+
+* Por fecha
+* Por cliente
+* Por método de pago
+* Por estado
+* Por monto
+
+== Estados de Pago
+
+Los pagos pueden tener diferentes estados:
+
+* Pendiente: Aún no se ha completado
+* Completado: Pago exitoso
+* Fallido: Error en el procesamiento
+* Reembolsado: Pago devuelto
+
+== Procesar Pagos
+
+Para procesar pagos manualmente:
+
+. Selecciona el pago pendiente
+. Verifica los detalles
+. Confirma el procesamiento
+. Registra el método de pago utilizado
+
+== Ver Reportes de Pagos
+
+Los administradores pueden generar reportes detallados de pagos:
+
+=== Reporte Diario
+
+Resumen de pagos del día con:
+
+* Total de ingresos
+* Pagos por método
+* Pagos pendientes
+* Comparación con días anteriores
+
+=== Reporte Mensual
+
+Análisis mensual completo:
+
+* Ingresos totales
+* Tendencias de pago
+* Métodos más utilizados
+* Clientes más frecuentes
+
+=== Reporte de Reembolsos
+
+Seguimiento de todos los reembolsos procesados.
+
+== Gestionar Reembolsos
+
+Los reembolsos pueden ser procesados desde el panel de administración:
+
+. Selecciona el pago a reembolsar
+. Verifica la información
+. Indica el motivo del reembolso
+. Procesa el reembolso
+
+El sistema notificará automáticamente al cliente.
+
+== Exportar Datos
+
+Puedes exportar los datos de pagos para:
+
+* Contabilidad
+* Análisis financiero
+* Reportes fiscales
+* Auditorías
+
+Formatos disponibles: CSV, Excel, PDF.
+
+

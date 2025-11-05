@@ -1,0 +1,14 @@
+site:
+  title: Manual del Desarrollador - UnoSportClub
+  start_page: developer::index.adoc
+content:
+  sources:
+    - url: /home/neftaliyagua/Desarrollo/unosportclub/docs/developer
+      branches: HEAD
+      start_path: .
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+output:
+  dir: /home/neftaliyagua/Desarrollo/unosportclub/docs/build/developer

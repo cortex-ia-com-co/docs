@@ -1,0 +1,88 @@
+= Configuración del Sistema
+
+Acceso completo a todas las configuraciones del sistema.
+
+== Configuración General
+
+El super usuario tiene acceso a todas las configuraciones del sistema:
+
+=== Información del Club
+
+* Nombre del club
+* Dirección
+* Contacto
+* Horarios de atención
+
+=== Configuración de Reservas
+
+* Duración mínima de reserva
+* Duración máxima de reserva
+* Tiempo de anticipación requerido
+* Políticas de cancelación
+
+=== Configuración de Notificaciones
+
+* Email del sistema
+* Plantillas de emails
+* Configuración de SMS
+* Notificaciones push
+
+== Configuración de Seguridad
+
+Las políticas de seguridad pueden ser configuradas desde aquí:
+
+=== Autenticación
+
+* Requisitos de contraseña
+* Políticas de expiración
+* Autenticación de dos factores
+* Intentos de inicio de sesión
+
+=== Sesiones
+
+* Tiempo de expiración de sesión
+* Sesiones simultáneas
+* Políticas de inactividad
+
+=== Cifrado
+
+* Configuración de SSL/TLS
+* Certificados
+* Políticas de datos sensibles
+
+== Configuración de Integraciones
+
+Las integraciones con sistemas externos son gestionadas por super usuarios:
+
+=== Pasarelas de Pago
+
+* Configuración de procesadores
+* Claves API
+* Webhooks
+
+=== Servicios Externos
+
+* Servicios de email
+* Servicios de SMS
+* APIs de terceros
+
+=== Integraciones de Calendario
+
+* Sincronización con calendarios externos
+* Exportación de eventos
+
+== Configuración de Personalización
+
+=== Apariencia
+
+* Logo del club
+* Colores del sistema
+* Tema personalizado
+
+=== Branding
+
+* Nombre de la plataforma
+* Información de contacto
+* Términos y condiciones
+
+

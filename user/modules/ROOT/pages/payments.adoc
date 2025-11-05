@@ -1,0 +1,72 @@
+= Pagos
+
+Información sobre métodos de pago y gestión de transacciones.
+
+== Métodos de Pago Disponibles
+
+=== Tarjeta de Crédito/Débito
+
+Aceptamos todas las tarjetas principales:
+
+* Visa
+* Mastercard
+* American Express
+
+=== Transferencia Bancaria
+
+Puedes realizar transferencias bancarias a nuestra cuenta:
+
+* Banco: Banco Nacional
+* Cuenta: 123456789
+* Beneficiario: UnoSportClub S.A.
+
+=== Pago en Efectivo
+
+También puedes pagar en efectivo directamente en el club antes de tu reserva.
+
+== Realizar un Pago
+
+=== Proceso de Pago
+
+Para realizar un pago:
+
+. Accede a la sección "Pagos"
+. Selecciona la reserva a pagar
+. Elige el método de pago
+. Completa los datos requeridos
+. Confirma el pago
+
+=== Comprobante de Pago
+
+Después de cada pago recibirás:
+
+* Confirmación por email
+* Comprobante digital descargable
+* Registro en tu historial de pagos
+
+== Historial de Pagos
+
+En tu historial puedes ver:
+
+* Todos los pagos realizados
+* Estado de cada transacción
+* Comprobantes descargables
+* Filtros por fecha y método
+
+== Facturación
+
+=== Solicitar Factura
+
+Para solicitar una factura:
+
+. Accede a tu historial de pagos
+. Selecciona el pago a facturar
+. Haz clic en "Solicitar Factura"
+. Completa los datos fiscales
+. Recibirás la factura por email
+
+=== Datos Fiscales
+
+Asegúrate de tener tus datos fiscales actualizados para recibir facturas correctamente.
+
+

@@ -1,0 +1,109 @@
+= Arquitectura
+
+Descripción de la arquitectura del sistema UnoSportClub.
+
+== Arquitectura General
+
+El sistema está construido con las siguientes tecnologías:
+
+* Frontend: Angular
+* Backend: Node.js con Express
+* Base de datos: Firebase
+* Autenticación: Firebase Auth
+
+== Diagrama de Arquitectura
+
+[source,asciidoc]
+----
+┌─────────────┐
+│   Angular   │
+│   Frontend  │
+└──────┬──────┘
+       │
+       │ HTTP/REST
+       │
+┌──────▼──────┐
+│   Express   │
+│   Backend   │
+└──────┬──────┘
+       │
+       │ SDK
+       │
+┌──────▼──────┐
+│   Firebase  │
+│  Services   │
+└─────────────┘
+----
+
+== Componentes Principales
+
+=== Frontend (Angular)
+
+El frontend está organizado en:
+
+* `projects/panel/` - Aplicación principal del panel
+* Componentes reutilizables
+* Servicios de comunicación
+* Guards y interceptores
+
+=== Backend (Node.js/Express)
+
+El backend está estructurado en:
+
+* `functions/` - Funciones de backend
+* `routes/` - Rutas de la API
+* `middleware/` - Middleware personalizado
+* `services/` - Servicios de negocio
+
+=== Base de Datos (Firebase)
+
+Firebase proporciona:
+
+* Firestore para datos
+* Firebase Auth para autenticación
+* Firebase Storage para archivos
+* Firebase Functions para lógica del servidor
+
+== Estructura del Proyecto
+
+```
+unosportclub/
+├── projects/
+│   └── panel/          # Frontend Angular
+├── functions/           # Backend Node.js
+│   └── routes/         # Rutas de API
+├── docs/               # Documentación
+└── ...
+```
+
+== Flujo de Datos
+
+1. El usuario interactúa con el frontend Angular
+2. Las peticiones se envían al backend Express
+3. El backend procesa la lógica de negocio
+4. Se accede a Firebase para persistencia
+5. La respuesta se envía de vuelta al frontend
+
+== Seguridad
+
+=== Autenticación
+
+* Firebase Auth maneja la autenticación
+* Tokens JWT para sesiones
+* Refresh tokens para renovación
+
+=== Autorización
+
+* Roles y permisos por usuario
+* Validación en backend
+* Guards en frontend
+
+== Escalabilidad
+
+El sistema está diseñado para escalar:
+
+* Firebase escala automáticamente
+* Express puede escalarse horizontalmente
+* Angular se puede optimizar con lazy loading
+
+

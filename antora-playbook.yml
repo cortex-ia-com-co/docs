@@ -1,0 +1,50 @@
+site:
+  title: Documentación
+  start_page: ROOT::index.adoc
+antora:
+  extensions:
+    - '@antora/lunr-extension'
+    - '@antora/pdf-extension'
+content:
+  edit_url: ~
+  sources: 
+    - url: .
+      branches: HEAD
+      start_path: ROOT
+      edit_url: ~
+    - url: .
+      branches: HEAD
+      start_path: user
+      edit_url: ~
+    - url: .
+      branches: HEAD
+      start_path: operator
+      edit_url: ~
+    - url: .
+      branches: HEAD
+      start_path: admin
+      edit_url: ~
+    - url: .
+      branches: HEAD
+      start_path: sudo
+      edit_url: ~
+    - url: .
+      branches: HEAD
+      start_path: developer
+      edit_url: ~
+    - url: .
+      branches: HEAD
+      start_path: implementation
+      edit_url: ~
+asciidoc:
+  attributes:
+    page-component-sort-order: ROOT,user,operator,admin,sudo,developer,implementation
+    doctype: book
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+  supplemental_files:
+    - path: ui/css/custom.css
+output:
+  dir: ./build/site

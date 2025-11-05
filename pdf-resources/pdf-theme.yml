@@ -1,0 +1,63 @@
+extends: default
+cover:
+  front:
+    image: image:cover.png[fit=fill]
+  back:
+    image: image:back.png[fit=fill]
+page:
+  size: Letter
+  layout: portrait
+  margin: 1in
+  background-image:
+    recto: image:background-recto.jpg[fit=fill]
+    verso: image:background-verso.jpg[fit=fill]
+base:
+  indent: 1.5in
+  font-size: 12
+  font-family: Noto Serif
+  line-height-length: 17
+  line-height: $base-line-height-length / $base-font-size
+title-page:
+  background-image: image:title.png[fit=fill]
+  logo:
+    image: image:logo.png[pdfwidth=50%,align=center]
+  title:
+    font_color: 000000
+  authors:
+    delimiter: ', '
+    display: true
+  subtitle:
+    font_color: 000000
+  authors:
+    font_color: 000000
+  revision:
+    display: true
+    margin_top: $base_font_size * 1.25
+  text-align: center
+header:
+  recto:
+    columns: "<40% =20% >40%"
+    right:
+      content: '_{organization}_'
+footer:
+  recto:
+    left:
+      content: '{page-number}'
+    right:
+      content: '{section-or-chapter-title}'
+  verso:
+    left:
+      content: '{section-or-chapter-title}'
+    right:
+      content: '{page-number}'
+toc:
+  title:
+    text-align: center
+section:
+  indent: 1.5in@
+heading:
+  h1-text-align: center
+  h2-text-align: center
+  h3-text-align: left
+  h4-text-align: left
+  h5-text-align: left

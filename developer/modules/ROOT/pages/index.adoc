@@ -1,0 +1,9 @@
+= Manual del Desarrollador
+
+Este es el manual del desarrollador para UnoSportClub.
+
+== Introducción
+
+Bienvenido al manual del desarrollador. Este documento cubre el desarrollo, arquitectura y APIs del sistema.
+
+include::architecture.adoc[]

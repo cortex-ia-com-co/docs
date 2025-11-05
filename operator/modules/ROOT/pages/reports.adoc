@@ -1,0 +1,54 @@
+= Reportes
+
+Generación y consulta de reportes operativos.
+
+== Reportes Disponibles
+
+=== Reporte Diario
+
+Resumen de actividades del día:
+
+* Total de reservas
+* Reservas confirmadas
+* Reservas canceladas
+* Ingresos del día
+
+=== Reporte Semanal
+
+Vista consolidada de la semana:
+
+* Reservas por día
+* Canchas más utilizadas
+* Horarios pico
+* Comparación con semanas anteriores
+
+=== Reporte Mensual
+
+Análisis mensual completo:
+
+* Estadísticas generales
+* Tendencias
+* Análisis de ingresos
+* Previsiones
+
+== Generar Reportes
+
+Para generar un reporte:
+
+. Accede a la sección "Reportes"
+. Selecciona el tipo de reporte
+. Define el período
+. Aplica filtros si es necesario
+. Genera el reporte
+
+Los reportes se pueden exportar en formato PDF o Excel.
+
+== Exportar Datos
+
+Puedes exportar los datos para análisis externos:
+
+* Formato CSV
+* Formato Excel
+* Formato PDF
+
+

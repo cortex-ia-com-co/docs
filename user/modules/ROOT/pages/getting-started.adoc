@@ -1,0 +1,58 @@
+= Primeros Pasos
+
+Esta guía te ayudará a comenzar a usar UnoSportClub rápidamente.
+
+== Crear una Cuenta
+
+El primer paso para usar la plataforma es crear tu cuenta de usuario.
+
+=== Paso 1: Acceder al Registro
+
+Navega a la página de registro desde el enlace en la página principal.
+
+=== Paso 2: Completar el Formulario
+
+Completa todos los campos requeridos:
+
+* Nombre completo
+* Email
+* Contraseña (mínimo 6 caracteres)
+* Confirmar contraseña
+
+=== Paso 3: Confirmar Email
+
+Revisa tu bandeja de entrada y haz clic en el enlace de confirmación que recibirás por email.
+
+=== Paso 4: Iniciar Sesión
+
+Una vez confirmado tu email, puedes iniciar sesión con tus credenciales.
+
+== Configuración Inicial
+
+=== Completar Perfil
+
+Después de crear tu cuenta, completa tu perfil con información adicional:
+
+* Número de teléfono
+* Dirección (opcional)
+* Método de pago preferido
+
+=== Explorar las Funcionalidades
+
+Tómate un tiempo para explorar las diferentes secciones de la plataforma:
+
+* Ver canchas disponibles
+* Consultar horarios
+* Revisar tarifas
+* Explorar tu panel de usuario
+
+== Próximos Pasos
+
+Una vez completada la configuración inicial, puedes comenzar a:
+
+* Hacer tu primera reserva
+* Explorar las diferentes canchas disponibles
+* Configurar alertas de disponibilidad
+* Invitar amigos a la plataforma
+
+

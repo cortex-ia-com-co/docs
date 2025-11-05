@@ -1,0 +1,13 @@
+= Manual del Operador
+
+Este es el manual del operador para UnoSportClub.
+
+== Introducción
+
+Bienvenido al manual del operador. Este documento está dirigido a los operadores que gestionan las reservas y el día a día del club.
+
+include::reservations.adoc[]
+
+include::courts.adoc[]
+
+include::reports.adoc[]

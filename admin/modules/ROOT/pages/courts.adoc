@@ -1,0 +1,79 @@
+= Gestión de Canchas
+
+Administración de las canchas deportivas del club.
+
+== Lista de Canchas
+
+La lista muestra todas las canchas registradas con su información:
+
+* Nombre
+* Tipo
+* Deporte
+* Capacidad
+* Estado actual
+
+== Crear Cancha
+
+Los administradores pueden agregar nuevas canchas al sistema:
+
+. Accede a "Canchas" > "Nueva Cancha"
+. Completa el formulario:
+* Nombre de la cancha
+* Tipo (indoor/outdoor)
+* Deporte principal
+* Capacidad máxima
+* Estado inicial
+. Guarda la cancha
+
+== Configurar Canchas
+
+Cada cancha puede ser configurada con sus características específicas:
+
+=== Información General
+
+* Nombre descriptivo
+* Descripción detallada
+* Ubicación dentro del club
+* Horarios de disponibilidad
+
+=== Características Físicas
+
+* Dimensiones
+* Tipo de superficie
+* Iluminación
+* Vestuarios disponibles
+
+=== Disponibilidad
+
+* Horarios de apertura
+* Días de la semana disponibles
+* Temporadas especiales
+* Restricciones
+
+== Editar Cancha
+
+Para modificar una cancha existente:
+
+. Selecciona la cancha
+. Haz clic en "Editar"
+. Modifica los campos necesarios
+. Guarda los cambios
+
+== Eliminar Cancha
+
+Las canchas pueden ser eliminadas del sistema si ya no están en uso:
+
+. Selecciona la cancha
+. Verifica que no tenga reservas activas
+. Confirma la eliminación
+
+== Mantenimiento
+
+Gestiona el mantenimiento de las canchas:
+
+* Programar mantenimiento preventivo
+* Registrar reparaciones
+* Historial de mantenimientos
+* Costos asociados
+
+

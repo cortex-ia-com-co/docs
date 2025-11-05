@@ -1,0 +1,84 @@
+= Mi Perfil
+
+Gestión de tu cuenta personal y configuraciones.
+
+== Información Personal
+
+=== Datos Básicos
+
+En esta sección puedes actualizar:
+
+* Nombre completo
+* Email
+* Teléfono
+* Dirección
+
+=== Foto de Perfil
+
+Puedes subir una foto de perfil que se mostrará en tu cuenta.
+
+== Seguridad
+
+=== Cambiar Contraseña
+
+Para cambiar tu contraseña:
+
+. Accede a "Mi Perfil" > "Seguridad"
+. Ingresa tu contraseña actual
+. Ingresa la nueva contraseña
+. Confirma la nueva contraseña
+. Guarda los cambios
+
+=== Autenticación de Dos Factores
+
+Puedes activar la autenticación de dos factores para mayor seguridad:
+
+. Ve a "Seguridad"
+. Activa "Autenticación de dos factores"
+. Configura tu método preferido (SMS o App)
+
+== Preferencias
+
+=== Notificaciones
+
+Configura cómo recibes las notificaciones:
+
+* Por email
+* Por SMS
+* Notificaciones push
+* Recordatorios de reservas
+
+=== Idioma
+
+Selecciona tu idioma preferido para la interfaz.
+
+=== Zona Horaria
+
+Configura tu zona horaria para ver los horarios correctamente.
+
+== Métodos de Pago Guardados
+
+=== Agregar Método de Pago
+
+Para agregar un nuevo método de pago:
+
+. Ve a "Métodos de Pago"
+. Haz clic en "Agregar Método"
+. Completa los datos
+. Guarda la información
+
+=== Eliminar Método de Pago
+
+Puedes eliminar métodos de pago guardados desde esta sección.
+
+== Eliminar Cuenta
+
+Si deseas eliminar tu cuenta:
+
+. Ve a "Configuración" > "Eliminar Cuenta"
+. Lee la información importante
+. Confirma la eliminación
+
+Advertencia: Esta acción no se puede deshacer.
+
+

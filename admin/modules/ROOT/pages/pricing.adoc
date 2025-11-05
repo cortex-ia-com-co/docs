@@ -1,0 +1,85 @@
+= Gestión de Tarifas
+
+Configuración de precios y tarifas para las reservas.
+
+== Ver Tarifas
+
+La lista de tarifas muestra todas las configuraciones de precios:
+
+* Nombre de la tarifa
+* Cancha asociada
+* Horario
+* Tipo de día
+* Precio
+* Estado
+
+== Crear Tarifa
+
+Para crear una nueva tarifa:
+
+. Accede a "Tarifas" > "Nueva Tarifa"
+. Completa el formulario:
+* Nombre descriptivo
+* Cancha asociada
+* Horario (mañana/tarde/noche)
+* Tipo de día (entre semana/fin de semana/festivo)
+* Precio
+* Duración
+* Estado (activa/inactiva)
+. Guarda la tarifa
+
+== Configurar Tarifas
+
+Las tarifas pueden ser configuradas según diferentes criterios:
+
+=== Por Horario
+
+* Tarifa matutina (6:00 - 12:00)
+* Tarifa vespertina (12:00 - 18:00)
+* Tarifa nocturna (18:00 - 24:00)
+
+=== Por Tipo de Día
+
+* Entre semana
+* Fin de semana
+* Días festivos
+
+=== Por Temporada
+
+* Temporada alta
+* Temporada baja
+* Temporada especial
+
+== Aplicar Descuentos
+
+Los administradores pueden aplicar descuentos especiales:
+
+=== Descuentos Automáticos
+
+* Descuento por volumen
+* Descuento por fidelidad
+* Descuento para grupos
+
+=== Descuentos Manuales
+
+* Cupones promocionales
+* Descuentos por cliente
+* Descuentos temporales
+
+== Editar Tarifa
+
+Para modificar una tarifa existente:
+
+. Selecciona la tarifa
+. Haz clic en "Editar"
+. Modifica los campos necesarios
+. Guarda los cambios
+
+== Activar/Desactivar Tarifas
+
+Puedes activar o desactivar tarifas sin eliminarlas:
+
+* Tarifas activas: Se aplican automáticamente
+* Tarifas inactivas: No se ofrecen pero se mantienen para referencia
+
+

@@ -1,0 +1,34 @@
+= Manual de Usuario
+
+Este es el manual de usuario para UnoSportClub.
+
+== Introducción
+
+Bienvenido al manual de usuario de UnoSportClub. Este documento te guiará en el uso de la plataforma desde la perspectiva del usuario final.
+
+La plataforma UnoSportClub te permite gestionar tus reservas de canchas deportivas de manera sencilla y eficiente.
+
+include::getting-started.adoc[]
+
+include::reservations.adoc[]
+
+include::payments.adoc[]
+
+include::profile.adoc[]
+
+== Preguntas Frecuentes
+
+[discrete]
+=== ¿Cómo cancelo una reserva?
+
+Puedes cancelar una reserva desde la sección "Mis Reservas" hasta 24 horas antes de la fecha programada.
+
+[discrete]
+=== ¿Puedo modificar una reserva?
+
+Sí, puedes modificar la fecha y hora de tu reserva desde la sección "Mis Reservas" siempre que haya disponibilidad.
+
+[discrete]
+=== ¿Cómo contacto al soporte?
+
+Puedes contactar al soporte a través del chat en línea o enviando un email a soporte@unosportclub.com.

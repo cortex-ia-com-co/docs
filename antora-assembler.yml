@@ -1,0 +1,20 @@
+root_level: 1
+component_versions: "*"
+asciidoc:
+  attributes:
+    source-highlighter: rouge
+    doctype: book
+    pdf-theme: ./pdf-resources/pdf-theme.yml
+    pdf-themesdir: pdf-resources
+    pdf-fontsdir: pdf-resources/fonts
+    organization: UnoSportClub
+    toc-title: Tabla de Contenidos
+    toc2: true
+    cover: true
+    encoding: utf-8
+    lang: es
+    docencoding: utf-8
+    page-component-sort-order: ROOT,user,operator,admin,sudo,developer,implementation
+build:
+  command: bundle exec asciidoctor-pdf
+

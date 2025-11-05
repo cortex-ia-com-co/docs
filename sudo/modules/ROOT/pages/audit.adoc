@@ -1,0 +1,79 @@
+= Auditoría
+
+Registro completo de todas las actividades del sistema.
+
+== Ver Logs del Sistema
+
+Todos los logs del sistema están disponibles para super usuarios:
+
+=== Logs de Acceso
+
+Registro de todos los accesos al sistema:
+
+* Usuario
+* Fecha y hora
+* IP de origen
+* Acción realizada
+* Resultado
+
+=== Logs de Operaciones
+
+Registro de operaciones realizadas:
+
+* Creación de registros
+* Modificaciones
+* Eliminaciones
+* Cambios de estado
+
+=== Logs de Seguridad
+
+Eventos relacionados con seguridad:
+
+* Intentos de acceso fallidos
+* Cambios de permisos
+* Modificaciones de configuración crítica
+* Alertas de seguridad
+
+== Generar Reportes de Auditoría
+
+Los reportes de auditoría pueden ser generados para cumplimiento:
+
+=== Reporte de Accesos
+
+Análisis de accesos al sistema por período.
+
+=== Reporte de Cambios
+
+Registro de todos los cambios realizados en el sistema.
+
+=== Reporte de Cumplimiento
+
+Reporte para auditorías externas y cumplimiento normativo.
+
+== Filtros y Búsqueda
+
+Utiliza los filtros avanzados para encontrar eventos específicos:
+
+* Por usuario
+* Por tipo de evento
+* Por fecha
+* Por IP
+* Por resultado
+
+== Exportar Logs
+
+Los logs pueden ser exportados para análisis externos:
+
+* Formato CSV
+* Formato JSON
+* Formato de texto plano
+
+== Retención de Logs
+
+Configura la retención de logs según tus necesidades:
+
+* Período de retención
+* Archivado automático
+* Eliminación programada
+
+

@@ -1,0 +1,15 @@
+= Manual del Super Usuario
+
+Este es el manual del super usuario para UnoSportClub.
+
+== Introducción
+
+Bienvenido al manual del super usuario. Este documento cubre todas las funcionalidades de nivel superior del sistema.
+
+include::users.adoc[]
+
+include::system-config.adoc[]
+
+include::audit.adoc[]
+
+include::backup.adoc[]

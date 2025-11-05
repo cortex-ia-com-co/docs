@@ -1,0 +1,43 @@
+= Estado de Canchas
+
+Gestión del estado y disponibilidad de las canchas.
+
+== Ver Estado Actual
+
+El operador puede verificar el estado de cada cancha en tiempo real:
+
+* Disponible
+* Ocupada
+* En mantenimiento
+* No disponible
+
+== Cambiar Estado de Cancha
+
+Para cambiar el estado de una cancha:
+
+. Selecciona la cancha
+. Elige el nuevo estado
+. Indica el motivo si es necesario
+. Guarda los cambios
+
+== Reportar Mantenimiento
+
+Si una cancha requiere mantenimiento:
+
+. Accede a "Estado de Canchas"
+. Selecciona la cancha afectada
+. Elige "En Mantenimiento"
+. Describe el problema
+. Estima el tiempo de reparación
+
+El sistema automáticamente bloqueará las reservas durante el período de mantenimiento.
+
+== Historial de Estados
+
+Puedes consultar el historial de cambios de estado de cada cancha para:
+
+* Seguimiento de mantenimientos
+* Análisis de disponibilidad
+* Identificación de problemas recurrentes
+
+

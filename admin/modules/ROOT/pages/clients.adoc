@@ -1,0 +1,68 @@
+= Gestión de Clientes
+
+Administración completa del módulo de clientes.
+
+== Ver Lista de Clientes
+
+La lista de clientes muestra todos los usuarios registrados en el sistema con información relevante:
+
+* Nombre completo
+* Email
+* Teléfono
+* Estado de cuenta
+* Última actividad
+
+== Crear Cliente
+
+Para crear un nuevo cliente:
+
+. Accede a la sección "Clientes"
+. Haz clic en "Nuevo Cliente"
+. Completa el formulario con los datos requeridos
+* Nombre
+* Apellido
+* Email
+* Teléfono
+* Dirección (opcional)
+. Guarda los cambios
+
+El sistema enviará un email de bienvenida al nuevo cliente.
+
+== Editar Cliente
+
+Los datos de los clientes pueden ser actualizados desde el panel de administración:
+
+. Selecciona el cliente a editar
+. Haz clic en "Editar"
+. Modifica los campos necesarios
+. Guarda los cambios
+
+== Eliminar Cliente
+
+Los clientes pueden ser eliminados siguiendo las políticas de retención de datos:
+
+. Selecciona el cliente
+. Haz clic en "Eliminar"
+. Confirma la eliminación
+
+Advertencia: Esta acción eliminará todos los datos asociados al cliente.
+
+== Historial del Cliente
+
+Puedes consultar el historial completo de cada cliente:
+
+* Reservas realizadas
+* Pagos efectuados
+* Actividad en el sistema
+* Notas y comentarios
+
+== Búsqueda y Filtros
+
+Utiliza las herramientas de búsqueda para encontrar clientes:
+
+* Por nombre
+* Por email
+* Por teléfono
+* Por estado
+
+

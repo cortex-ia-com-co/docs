@@ -1,0 +1,12 @@
+name: sudo
+title: Manual del Super Usuario
+version: ~
+asciidoc:
+  attributes:
+    source-language: asciidoc@
+    table-caption: false
+    encoding: utf-8
+    docencoding: utf-8
+    lang: es
+nav:
+- modules/ROOT/nav.adoc

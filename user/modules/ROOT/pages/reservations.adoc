@@ -1,0 +1,83 @@
+= Reservas
+
+Gestión completa de tus reservas de canchas deportivas.
+
+== Hacer una Reserva
+
+=== Seleccionar Cancha
+
+Desde la sección de reservas puedes ver todas las canchas disponibles:
+
+* Cancha Central
+* Cancha Norte
+* Cancha Sur
+* Cancha VIP
+
+Cada cancha muestra información detallada sobre sus características y disponibilidad.
+
+=== Elegir Fecha y Hora
+
+Una vez seleccionada la cancha:
+
+. Selecciona el día deseado en el calendario
+. Revisa los horarios disponibles
+. Elige el horario que mejor se ajuste a tus necesidades
+. Confirma la selección
+
+=== Confirmar Reserva
+
+Antes de confirmar, revisa los detalles:
+
+* Cancha seleccionada
+* Fecha y hora
+* Duración
+* Precio total
+
+Haz clic en "Confirmar Reserva" para completar el proceso.
+
+== Gestionar Reservas
+
+=== Ver Mis Reservas
+
+En la sección "Mis Reservas" puedes ver:
+
+* Reservas activas
+* Reservas próximas
+* Historial completo
+
+=== Modificar Reserva
+
+Para modificar una reserva existente:
+
+. Accede a "Mis Reservas"
+. Selecciona la reserva que deseas modificar
+. Haz clic en "Modificar"
+. Elige nueva fecha/hora si está disponible
+. Confirma los cambios
+
+=== Cancelar Reserva
+
+Para cancelar una reserva:
+
+. Ve a "Mis Reservas"
+. Selecciona la reserva a cancelar
+. Haz clic en "Cancelar"
+. Confirma la cancelación
+
+Nota: Las cancelaciones deben realizarse con al menos 24 horas de anticipación.
+
+== Tipos de Reserva
+
+=== Reserva Individual
+
+Reserva una cancha para uso personal. Duración estándar: 1 hora.
+
+=== Reserva Grupal
+
+Reserva para grupos de más de 4 personas. Incluye descuentos especiales.
+
+=== Reserva Recurrente
+
+Configura reservas automáticas semanales o mensuales para garantizar tu horario preferido.
+
+

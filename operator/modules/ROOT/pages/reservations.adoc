@@ -1,0 +1,51 @@
+= Gestión de Reservas
+
+Como operador, gestionarás las reservas del día a día del club.
+
+== Ver Reservas del Día
+
+Para consultar las reservas del día actual:
+
+. Accede al panel de operador
+. Ve a la sección "Reservas del Día"
+. Revisa las reservas confirmadas
+. Verifica los horarios y canchas asignadas
+
+La vista del día muestra todas las reservas organizadas por horario y cancha.
+
+== Confirmar Reservas
+
+Las reservas pendientes pueden ser confirmadas por el operador:
+
+. Revisa las reservas pendientes
+. Verifica la disponibilidad
+. Confirma o rechaza según corresponda
+. Notifica al cliente del resultado
+
+== Cancelar Reservas
+
+El operador puede cancelar reservas según las políticas del club:
+
+. Selecciona la reserva a cancelar
+. Indica el motivo de cancelación
+. Confirma la cancelación
+. El sistema notificará automáticamente al cliente
+
+== Modificar Reservas
+
+Puedes modificar reservas existentes:
+
+* Cambiar horario
+* Cambiar cancha
+* Actualizar información del cliente
+
+== Búsqueda y Filtros
+
+Utiliza los filtros para encontrar reservas específicas:
+
+* Por fecha
+* Por cancha
+* Por cliente
+* Por estado
+
+

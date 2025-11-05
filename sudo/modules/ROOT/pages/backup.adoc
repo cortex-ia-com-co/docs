@@ -1,0 +1,81 @@
+= Backup y Restauración
+
+Gestión de respaldos y recuperación del sistema.
+
+== Crear Backups
+
+Los super usuarios pueden crear backups del sistema completo:
+
+=== Backup Automático
+
+Configura backups automáticos programados:
+
+. Accede a "Backup" > "Configuración"
+. Define la frecuencia (diario/semanal/mensual)
+. Selecciona qué incluir en el backup
+. Configura el destino
+. Guarda la configuración
+
+=== Backup Manual
+
+Para crear un backup manual:
+
+. Ve a "Backup" > "Crear Backup"
+. Selecciona los componentes a incluir:
+* Base de datos
+* Archivos del sistema
+* Configuraciones
+* Logs
+. Inicia el backup
+
+El proceso puede tardar varios minutos dependiendo del tamaño de los datos.
+
+== Restaurar desde Backup
+
+La restauración del sistema puede ser realizada desde backups:
+
+. Accede a "Backup" > "Restaurar"
+. Selecciona el backup a restaurar
+. Revisa los detalles del backup
+. Elige qué componentes restaurar
+. Confirma la restauración
+
+Advertencia: La restauración sobrescribirá los datos actuales.
+
+== Gestionar Backups
+
+=== Lista de Backups
+
+Vista de todos los backups disponibles:
+
+* Fecha de creación
+* Tamaño
+* Componentes incluidos
+* Estado
+
+=== Eliminar Backups
+
+Los backups antiguos pueden ser eliminados para liberar espacio.
+
+=== Descargar Backups
+
+Puedes descargar backups para almacenamiento externo.
+
+== Verificación de Backups
+
+Es importante verificar regularmente que los backups funcionen correctamente:
+
+* Pruebas de restauración
+* Verificación de integridad
+* Validación de completitud
+
+== Políticas de Backup
+
+Configura políticas de backup según tus necesidades:
+
+* Retención de backups
+* Frecuencia automática
+* Almacenamiento externo
+* Encriptación de backups
+
+

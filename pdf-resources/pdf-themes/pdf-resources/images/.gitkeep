@@ -1,0 +1,8 @@
+# Este directorio contiene las imágenes del tema PDF
+# Las imágenes requeridas son:
+# - cover.png (portada frontal)
+# - back.png (portada trasera)
+# - background-recto.jpg (fondo páginas recto)
+# - background-verso.jpg (fondo páginas verso)
+# - title.png (fondo página de título)
+# - logo.png (logo para página de título)

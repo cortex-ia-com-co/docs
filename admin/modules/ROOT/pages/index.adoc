@@ -1,0 +1,15 @@
+= Manual del Administrador
+
+Este es el manual del administrador para UnoSportClub.
+
+== Introducción
+
+Bienvenido al manual del administrador. Este documento cubre todas las funcionalidades administrativas del sistema.
+
+include::clients.adoc[]
+
+include::courts.adoc[]
+
+include::pricing.adoc[]
+
+include::payments.adoc[]

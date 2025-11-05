@@ -1,0 +1,76 @@
+= Gestión de Usuarios
+
+Administración completa de usuarios del sistema.
+
+== Ver Usuarios del Sistema
+
+La lista muestra todos los usuarios con sus roles y permisos:
+
+* Nombre
+* Email
+* Rol asignado
+* Estado
+* Último acceso
+
+== Crear Usuarios del Sistema
+
+Los super usuarios pueden crear y gestionar todos los tipos de usuarios:
+
+. Accede a "Usuarios" > "Nuevo Usuario"
+. Completa el formulario:
+* Nombre completo
+* Email
+* Rol inicial
+* Contraseña temporal
+. Guarda el usuario
+
+El sistema enviará un email para que el usuario complete su registro.
+
+== Roles del Sistema
+
+Los diferentes roles disponibles son:
+
+* Usuario: Acceso básico
+* Operador: Gestión de reservas
+* Administrador: Gestión completa
+* Super Usuario: Acceso total
+
+== Asignar Permisos
+
+Los permisos pueden ser asignados de manera granular a cada usuario:
+
+. Selecciona el usuario
+. Ve a "Permisos"
+. Activa o desactiva permisos específicos
+. Guarda los cambios
+
+== Gestionar Roles
+
+Los roles del sistema pueden ser creados y modificados por super usuarios:
+
+. Accede a "Roles" > "Nuevo Rol"
+. Define el nombre del rol
+. Asigna permisos específicos
+. Guarda el rol
+
+== Editar Usuario
+
+Para modificar un usuario:
+
+. Selecciona el usuario
+. Haz clic en "Editar"
+. Modifica los campos necesarios
+. Actualiza permisos si es necesario
+. Guarda los cambios
+
+== Eliminar Usuario
+
+Los usuarios pueden ser eliminados del sistema:
+
+. Selecciona el usuario
+. Verifica dependencias
+. Confirma la eliminación
+
+Advertencia: Esta acción no se puede deshacer.
+
+
