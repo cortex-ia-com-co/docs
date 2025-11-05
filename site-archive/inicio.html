@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="es">
 <head>
-<title>Manual del Desarrollador: Inicio</title>
+<title>Manual de Integración: Inicio</title>
 <meta charset="UTF-8">
 <style>
 :root, :host {
@@ -3052,7 +3052,7 @@ span.footnote {
 
 
 <div id="cover" class="title-page front-matter">
-  <h1>Manual del Desarrollador: Inicio</h1>
+	<h1>Manual de Integración: Inicio</h1>
   <h2></h2>
 </div>
 <div style="display: none;">undefined</div>
@@ -3061,197 +3061,112 @@ span.footnote {
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Este es el manual del desarrollador para UnoSportClub.</p>
+<p>Este es el manual de integración para UnoSportClub.</p>
 </div>
 <h2 id="index:::_introducción" class="discrete">Introducción</h2>
 <div class="paragraph">
-<p>Bienvenido al manual del desarrollador. Este documento cubre el desarrollo, arquitectura y APIs del sistema.</p>
+<p>Bienvenido al manual de integración. Este documento guía el proceso de instalación y configuración inicial del sistema.</p>
 </div>
-<h1 id="index:::_arquitectura" class="discrete">Arquitectura</h1>
+<h2 id="index:::_requisitos_del_sistema" class="discrete">Requisitos del Sistema</h2>
+<h3 id="index:::_requisitos_de_hardware" class="discrete">Requisitos de Hardware</h3>
 <div class="paragraph">
-<p>Descripción de la arquitectura del sistema UnoSportClub.</p>
-</div>
-<h2 id="index:::_arquitectura_general" class="discrete">Arquitectura General</h2>
-<div class="paragraph">
-<p>El sistema está construido con las siguientes tecnologías:</p>
+<p>Los requisitos mínimos de hardware son:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Frontend: Angular</p>
+<p>Procesador: 2+ núcleos</p>
 </li>
 <li>
-<p>Backend: Node.js con Express</p>
+<p>RAM: 4GB mínimo, 8GB recomendado</p>
 </li>
 <li>
-<p>Base de datos: Firebase</p>
-</li>
-<li>
-<p>Autenticación: Firebase Auth</p>
+<p>Almacenamiento: 50GB mínimo</p>
 </li>
 </ul>
 </div>
-<h2 id="index:::_diagrama_de_arquitectura" class="discrete">Diagrama de Arquitectura</h2>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-asciidoc" data-lang="asciidoc">┌─────────────┐
-│   Angular   │
-│   Frontend  │
-└──────┬──────┘
-       │
-       │ HTTP/REST
-       │
-┌──────▼──────┐
-│   Express   │
-│   Backend   │
-└──────┬──────┘
-       │
-       │ SDK
-       │
-┌──────▼──────┐
-│   Firebase  │
-│  Services   │
-└─────────────┘</code></pre>
-</div>
-</div>
-<h2 id="index:::_componentes_principales" class="discrete">Componentes Principales</h2>
-<h3 id="index:::_frontend_angular" class="discrete">Frontend (Angular)</h3>
+<h3 id="index:::_requisitos_de_software" class="discrete">Requisitos de Software</h3>
 <div class="paragraph">
-<p>El frontend está organizado en:</p>
+<p>El sistema requiere:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>projects/panel/</code> - Aplicación principal del panel</p>
+<p>Node.js 18+</p>
 </li>
 <li>
-<p>Componentes reutilizables</p>
+<p>npm 9+</p>
 </li>
 <li>
-<p>Servicios de comunicación</p>
+<p>Firebase CLI</p>
 </li>
 <li>
-<p>Guards y interceptores</p>
+<p>Base de datos configurada</p>
 </li>
 </ul>
 </div>
-<h3 id="index:::_backend_node_jsexpress" class="discrete">Backend (Node.js/Express)</h3>
+<h2 id="index:::_instalación" class="discrete">Instalación</h2>
+<h3 id="index:::_instalación_base" class="discrete">Instalación Base</h3>
 <div class="paragraph">
-<p>El backend está estructurado en:</p>
+<p>Pasos para la instalación base:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>functions/</code> - Funciones de backend</p>
-</li>
-<li>
-<p><code>routes/</code> - Rutas de la API</p>
-</li>
-<li>
-<p><code>middleware/</code> - Middleware personalizado</p>
-</li>
-<li>
-<p><code>services/</code> - Servicios de negocio</p>
-</li>
-</ul>
-</div>
-<h3 id="index:::_base_de_datos_firebase" class="discrete">Base de Datos (Firebase)</h3>
-<div class="paragraph">
-<p>Firebase proporciona:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Firestore para datos</p>
-</li>
-<li>
-<p>Firebase Auth para autenticación</p>
-</li>
-<li>
-<p>Firebase Storage para archivos</p>
-</li>
-<li>
-<p>Firebase Functions para lógica del servidor</p>
-</li>
-</ul>
-</div>
-<h2 id="index:::_estructura_del_proyecto" class="discrete">Estructura del Proyecto</h2>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-asciidoc" data-lang="asciidoc">unosportclub/
-├── projects/
-│   └── panel/          # Frontend Angular
-├── functions/           # Backend Node.js
-│   └── routes/         # Rutas de API
-├── docs/               # Documentación
-└── ...</code></pre>
-</div>
-</div>
-<h2 id="index:::_flujo_de_datos" class="discrete">Flujo de Datos</h2>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>El usuario interactúa con el frontend Angular</p>
+<p>Clonar el repositorio</p>
 </li>
 <li>
-<p>Las peticiones se envían al backend Express</p>
+<p>Instalar dependencias</p>
 </li>
 <li>
-<p>El backend procesa la lógica de negocio</p>
+<p>Configurar variables de entorno</p>
 </li>
 <li>
-<p>Se accede a Firebase para persistencia</p>
-</li>
-<li>
-<p>La respuesta se envía de vuelta al frontend</p>
+<p>Ejecutar migraciones</p>
 </li>
 </ol>
 </div>
-<h2 id="index:::_seguridad" class="discrete">Seguridad</h2>
-<h3 id="index:::_autenticación" class="discrete">Autenticación</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Firebase Auth maneja la autenticación</p>
-</li>
-<li>
-<p>Tokens JWT para sesiones</p>
-</li>
-<li>
-<p>Refresh tokens para renovación</p>
-</li>
-</ul>
-</div>
-<h3 id="index:::_autorización" class="discrete">Autorización</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Roles y permisos por usuario</p>
-</li>
-<li>
-<p>Validación en backend</p>
-</li>
-<li>
-<p>Guards en frontend</p>
-</li>
-</ul>
-</div>
-<h2 id="index:::_escalabilidad" class="discrete">Escalabilidad</h2>
+<h3 id="index:::_configuración_inicial" class="discrete">Configuración Inicial</h3>
 <div class="paragraph">
-<p>El sistema está diseñado para escalar:</p>
+<p>La configuración inicial incluye:</p>
 </div>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>Firebase escala automáticamente</p>
+<p>Configuración de Firebase</p>
 </li>
 <li>
-<p>Express puede escalarse horizontalmente</p>
+<p>Configuración de base de datos</p>
 </li>
 <li>
-<p>Angular se puede optimizar con lazy loading</p>
+<p>Configuración de autenticación</p>
 </li>
-</ul>
+<li>
+<p>Configuración de permisos</p>
+</li>
+</ol>
+</div>
+<h2 id="index:::_despliegue" class="discrete">Despliegue</h2>
+<h3 id="index:::_despliegue_en_desarrollo" class="discrete">Despliegue en Desarrollo</h3>
+<div class="paragraph">
+<p>Instrucciones para el despliegue en ambiente de desarrollo.</p>
+</div>
+<h3 id="index:::_despliegue_en_producción" class="discrete">Despliegue en Producción</h3>
+<div class="paragraph">
+<p>Guía completa para el despliegue en producción.</p>
+</div>
+<h2 id="index:::_configuración_post_instalación" class="discrete">Configuración Post-Instalación</h2>
+<h3 id="index:::_crear_usuario_administrador" class="discrete">Crear Usuario Administrador</h3>
+<div class="paragraph">
+<p>El primer usuario administrador debe ser creado después de la instalación.</p>
+</div>
+<h3 id="index:::_configurar_canchas_iniciales" class="discrete">Configurar Canchas Iniciales</h3>
+<div class="paragraph">
+<p>Las canchas deben ser configuradas antes de comenzar a operar.</p>
+</div>
+<h3 id="index:::_configurar_tarifas" class="discrete">Configurar Tarifas</h3>
+<div class="paragraph">
+<p>Las tarifas iniciales deben ser configuradas.</p>
 </div>
 </div>
 </div>
