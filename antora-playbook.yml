@@ -38,7 +38,7 @@ content:
       edit_url: ~
 asciidoc:
   attributes:
-  page-component-sort-order: ROOT,user,operator,admin,sudo,developer,integration
+    page-component-sort-order: ROOT,user,operator,admin,sudo,developer,integration
     doctype: book
 ui:
   bundle:
