@@ -1,6 +1,8 @@
-# Antora Documentation
+# UnoSportClub Documentation (Antora)
 
-Este directorio contiene la documentación del proyecto UnoSportClub usando Antora.
+Este repositorio contiene la documentación oficial del proyecto UnoSportClub, implementada utilizando Antora como sistema de documentación.
+
+[![Built with Antora](https://img.shields.io/badge/Built%20with-Antora-brightgreen.svg)](https://antora.org/)
 
 ## Estructura
 
