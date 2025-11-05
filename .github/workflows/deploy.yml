@@ -29,7 +29,18 @@ jobs:
           node-version: '22'
           cache: 'npm'
 
-      - name: Install dependencies
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: Install Ruby dependencies
+        run: |
+          gem install bundler
+          bundle install
+
+      - name: Install Node dependencies
         run: |
           npm install
           npm ci
