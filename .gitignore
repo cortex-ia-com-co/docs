@@ -38,3 +38,5 @@ temp/
 # PDF outputs (opcional - si quieres versionar los PDFs, comenta esta línea)
 # *.pdf
 
+# Chrome DevTools workspace configuration
+.well-known/

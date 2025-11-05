@@ -46,5 +46,8 @@ ui:
     snapshot: true
   supplemental_files:
     - path: ui/css/custom.css
+    - path: .well-known
+      contents: .well-known
 output:
   dir: ./build/site
+  clean: true
