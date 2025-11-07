@@ -8,33 +8,33 @@ antora:
 content:
   edit_url: ~
   sources: 
-    - url: ..
+    - url: .
       branches: HEAD
-      start_path: docs/ROOT
+      start_path: ROOT
       edit_url: ~
-    - url: ..
+    - url: .
       branches: HEAD
-      start_path: docs/user
+      start_path: user
       edit_url: ~
-    - url: ..
+    - url: .
       branches: HEAD
-      start_path: docs/operator
+      start_path: operator
       edit_url: ~
-    - url: ..
+    - url: .
       branches: HEAD
-      start_path: docs/admin
+      start_path: admin
       edit_url: ~
-    - url: ..
+    - url: .
       branches: HEAD
-      start_path: docs/sudo
+      start_path: sudo
       edit_url: ~
-    - url: ..
+    - url: .
       branches: HEAD
-      start_path: docs/developer
+      start_path: developer
       edit_url: ~
-    - url: ..
+    - url: .
       branches: HEAD
-      start_path: docs/integration
+      start_path: integration
       edit_url: ~
 asciidoc:
   attributes:
