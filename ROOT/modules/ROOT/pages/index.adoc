@@ -2,6 +2,10 @@
 
 Bienvenido a la documentación completa de UnoSportClub.
 
+== Guías Principales
+
+* xref:installation.adoc[Guía de Instalación] - Instalación y configuración en Firebase
+
 == Manuales Disponibles
 
 * xref:user::index.adoc[Manual de Usuario]
@@ -10,5 +14,7 @@ Bienvenido a la documentación completa de UnoSportClub.
 * xref:sudo::index.adoc[Manual del Super Usuario]
 * xref:developer::index.adoc[Manual del Desarrollador]
 * xref:integration::index.adoc[Manual de Integración]
+
+
 
 

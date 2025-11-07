@@ -1,92 +1,62 @@
 = Gestión de Pagos
 
-Administración y seguimiento de todos los pagos del sistema.
+Administración y seguimiento de todos los pagos del sistema. Los pagos son de solo lectura y no se pueden crear, editar o eliminar desde el panel.
 
 == Ver Pagos
 
-La lista de pagos muestra todas las transacciones realizadas:
+La vista de pagos está organizada en dos pestañas:
 
-* Fecha y hora
-* Cliente
-* Reserva asociada
-* Monto
-* Método de pago
-* Estado
+=== Pagos Procesados
+
+Muestra todos los pagos que tienen una reservación asignada (`reservation_id` no es NULL). Estos son pagos que ya han sido vinculados a una reserva.
+
+=== Pagos Pendientes
+
+Muestra todos los pagos que no tienen reservación asignada (`reservation_id` es NULL). Estos son pagos huérfanos que aún no han sido procesados o vinculados a una reserva.
+
+== Información Mostrada
+
+La lista de pagos muestra:
+
+* ID del pago
+* Transaction ID: ID de transacción del gateway de pago
+* Reservación: ID de la reserva asociada (o "Sin reservación" si es huérfano)
+* Monto: Cantidad del pago en formato COP
+* Estado: Estado actual del pago
+* Fecha: Fecha y hora del pago
+* Descripción: Descripción adicional del pago
 
 == Filtros y Búsqueda
 
 Utiliza los filtros para encontrar pagos específicos:
 
-* Por fecha
-* Por cliente
-* Por método de pago
-* Por estado
-* Por monto
+* Por transaction_id o descripción (búsqueda de texto)
+* Por estado (pending, completed, failed, refunded)
 
 == Estados de Pago
 
 Los pagos pueden tener diferentes estados:
 
-* Pendiente: Aún no se ha completado
-* Completado: Pago exitoso
-* Fallido: Error en el procesamiento
-* Reembolsado: Pago devuelto
+* Pendiente (pending): Pago aún no procesado
+* Completado (completed): Pago exitoso
+* Fallido (failed): Error en el procesamiento
+* Reembolsado (refunded): Pago devuelto
 
-== Procesar Pagos
+== Estadísticas
 
-Para procesar pagos manualmente:
+El dashboard muestra estadísticas generales de pagos:
 
-. Selecciona el pago pendiente
-. Verifica los detalles
-. Confirma el procesamiento
-. Registra el método de pago utilizado
+* Total de pagos
+* Monto total de todos los pagos
+* Monto de pagos completados
+* Cantidad de pagos huérfanos
+* Desglose por estado
 
-== Ver Reportes de Pagos
+== Paginación
 
-Los administradores pueden generar reportes detallados de pagos:
+La lista de pagos incluye paginación con 50 registros por página.
 
-=== Reporte Diario
 
-Resumen de pagos del día con:
 
-* Total de ingresos
-* Pagos por método
-* Pagos pendientes
-* Comparación con días anteriores
-
-=== Reporte Mensual
-
-Análisis mensual completo:
-
-* Ingresos totales
-* Tendencias de pago
-* Métodos más utilizados
-* Clientes más frecuentes
-
-=== Reporte de Reembolsos
-
-Seguimiento de todos los reembolsos procesados.
-
-== Gestionar Reembolsos
-
-Los reembolsos pueden ser procesados desde el panel de administración:
-
-. Selecciona el pago a reembolsar
-. Verifica la información
-. Indica el motivo del reembolso
-. Procesa el reembolso
-
-El sistema notificará automáticamente al cliente.
-
-== Exportar Datos
-
-Puedes exportar los datos de pagos para:
-
-* Contabilidad
-* Análisis financiero
-* Reportes fiscales
-* Auditorías
-
-Formatos disponibles: CSV, Excel, PDF.
 
 

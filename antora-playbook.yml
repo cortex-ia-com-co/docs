@@ -5,50 +5,50 @@ site:
 antora:
   extensions:
     - '@antora/lunr-extension'
-    - '@antora/pdf-extension'
 content:
   edit_url: ~
   sources: 
-    - url: .
+    - url: ..
       branches: HEAD
-      start_path: ROOT
+      start_path: docs/ROOT
       edit_url: ~
-    - url: .
+    - url: ..
       branches: HEAD
-      start_path: user
+      start_path: docs/user
       edit_url: ~
-    - url: .
+    - url: ..
       branches: HEAD
-      start_path: operator
+      start_path: docs/operator
       edit_url: ~
-    - url: .
+    - url: ..
       branches: HEAD
-      start_path: admin
+      start_path: docs/admin
       edit_url: ~
-    - url: .
+    - url: ..
       branches: HEAD
-      start_path: sudo
+      start_path: docs/sudo
       edit_url: ~
-    - url: .
+    - url: ..
       branches: HEAD
-      start_path: developer
+      start_path: docs/developer
       edit_url: ~
-    - url: .
+    - url: ..
       branches: HEAD
-      start_path: integration
+      start_path: docs/integration
       edit_url: ~
 asciidoc:
   attributes:
     page-component-sort-order: ROOT,user,operator,admin,sudo,developer,integration
     doctype: book
+    kroki-server-url: 'https://kroki.io'
+    kroki-fetch-diagram: ''
 ui:
   bundle:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
     snapshot: true
   supplemental_files:
     - path: ui/css/custom.css
-    - path: .well-known
-      contents: .well-known
+    - path: ui/js/diagram-handler.js
 output:
   dir: ./build/site
   clean: true

@@ -1,16 +1,17 @@
 = Gestión de Clientes
 
-Administración completa del módulo de clientes.
+Administración completa del módulo de clientes. Los clientes se obtienen de la tabla `client` complementada con información de la tabla `user`.
 
 == Ver Lista de Clientes
 
-La lista de clientes muestra todos los usuarios registrados en el sistema con información relevante:
+La lista de clientes muestra todos los usuarios registrados como clientes en el sistema con información relevante:
 
-* Nombre completo
-* Email
-* Teléfono
-* Estado de cuenta
-* Última actividad
+* ID del cliente
+* Email (desde tabla `user`)
+* Nombre para mostrar (display_name desde tabla `user`)
+* Tipo de cliente
+* Estado de verificación de email
+* ID de usuario (Firebase Auth)
 
 == Crear Cliente
 
@@ -18,15 +19,12 @@ Para crear un nuevo cliente:
 
 . Accede a la sección "Clientes"
 . Haz clic en "Nuevo Cliente"
-. Completa el formulario con los datos requeridos
-* Nombre
-* Apellido
-* Email
-* Teléfono
-* Dirección (opcional)
+. Completa el formulario con los datos requeridos:
+* User ID (Firebase): ID del usuario de Firebase Auth
+* Tipo de Cliente: Selecciona el tipo de cliente
 . Guarda los cambios
 
-El sistema enviará un email de bienvenida al nuevo cliente.
+Nota: El usuario debe existir previamente en Firebase Auth y en la tabla `user` de la base de datos.
 
 == Editar Cliente
 
@@ -34,7 +32,7 @@ Los datos de los clientes pueden ser actualizados desde el panel de administraci
 
 . Selecciona el cliente a editar
 . Haz clic en "Editar"
-. Modifica los campos necesarios
+. Modifica el tipo de cliente (el user_id no se puede modificar)
 . Guarda los cambios
 
 == Eliminar Cliente
@@ -45,24 +43,21 @@ Los clientes pueden ser eliminados siguiendo las políticas de retención de dat
 . Haz clic en "Eliminar"
 . Confirma la eliminación
 
-Advertencia: Esta acción eliminará todos los datos asociados al cliente.
-
-== Historial del Cliente
-
-Puedes consultar el historial completo de cada cliente:
-
-* Reservas realizadas
-* Pagos efectuados
-* Actividad en el sistema
-* Notas y comentarios
+Advertencia: Esta acción eliminará el registro del cliente, pero no eliminará el usuario de Firebase Auth ni de la tabla `user`.
 
 == Búsqueda y Filtros
 
 Utiliza las herramientas de búsqueda para encontrar clientes:
 
-* Por nombre
-* Por email
-* Por teléfono
-* Por estado
+* Por email (búsqueda en tabla `user`)
+* Por nombre para mostrar (display_name)
+* Por tipo de cliente
+
+== Paginación
+
+La lista de clientes incluye paginación con 50 registros por página.
+
+
+
 
 

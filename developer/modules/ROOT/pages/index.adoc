@@ -4,6 +4,35 @@ Este es el manual del desarrollador para UnoSportClub.
 
 == Introducción
 
-Bienvenido al manual del desarrollador. Este documento cubre el desarrollo, arquitectura y APIs del sistema.
+Bienvenido al manual del desarrollador de UnoSportClub. Este documento cubre el desarrollo, arquitectura, APIs y guías de implementación del sistema.
+
+== Contenido
+
+Este manual incluye:
+
+* Preparación del entorno de desarrollo
+* Arquitectura del sistema y diseño de componentes
+* Modelo de datos y esquema de base de datos
+* Diagramas de secuencia de los flujos principales
+* Referencia de API REST
+* Guías de implementación y mejores prácticas
+* Stack tecnológico utilizado
+
+== Empezando
+
+Si es tu primera vez trabajando en el proyecto, comienza con:
+
+* xref:development-environment.adoc[Preparación del Entorno de Desarrollo] - Configura tu entorno local
+
+== Arquitectura General
+
+UnoSportClub es un sistema de gestión de reservas de canchas deportivas construido con:
+
+* *Frontend*: Angular (aplicación web)
+* *Backend*: Node.js con Express (API REST)
+* *Base de datos*: PostgreSQL
+* *Autenticación*: Firebase Auth
+* *Funciones*: Firebase Functions (`api/index.js`)
 
 include::architecture.adoc[]
+include::engineering.adoc[]

@@ -17,4 +17,5 @@ asciidoc:
   page-component-sort-order: ROOT,user,operator,admin,sudo,developer,integration
 build:
   command: bundle exec asciidoctor-pdf
+  to-dir: ./build/assembler-pdf
 

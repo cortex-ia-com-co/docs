@@ -1,4 +1,4 @@
-= Arquitectura
+= Arquitectura del Software
 
 Descripción de la arquitectura del sistema UnoSportClub.
 
@@ -7,9 +7,10 @@ Descripción de la arquitectura del sistema UnoSportClub.
 El sistema está construido con las siguientes tecnologías:
 
 * Frontend: Angular
-* Backend: Node.js con Express
-* Base de datos: Firebase
+* Backend: Node.js con Express (Firebase Functions)
+* Base de datos: PostgreSQL
 * Autenticación: Firebase Auth
+* API REST: `api/index.js` (Firebase Functions)
 
 == Diagrama de Arquitectura
 
@@ -22,17 +23,26 @@ El sistema está construido con las siguientes tecnologías:
        │
        │ HTTP/REST
        │
-┌──────▼──────┐
-│   Express   │
-│   Backend   │
-└──────┬──────┘
+┌──────▼──────────────┐
+│  Firebase Functions │
+│    api/index.js     │
+│   (Express/Node.js) │
+└──────┬──────────────┘
        │
-       │ SDK
+       │ PostgreSQL Driver
        │
-┌──────▼──────┐
-│   Firebase  │
-│  Services   │
-└─────────────┘
+┌──────▼──────────────┐
+│    PostgreSQL       │
+│   Base de Datos     │
+└─────────────────────┘
+
+       │
+       │ Firebase Auth
+       │
+┌──────▼──────────────┐
+│   Firebase Auth     │
+│  Autenticación      │
+└─────────────────────┘
 ----
 
 == Componentes Principales
@@ -43,67 +53,109 @@ El frontend está organizado en:
 
 * `projects/panel/` - Aplicación principal del panel
 * Componentes reutilizables
-* Servicios de comunicación
-* Guards y interceptores
+* Servicios de comunicación con API REST
+* Guards y interceptores para autenticación
+* WebSocket para notificaciones en tiempo real
 
-=== Backend (Node.js/Express)
+=== Backend (Firebase Functions)
 
-El backend está estructurado en:
+El backend está implementado en Firebase Functions:
 
-* `functions/` - Funciones de backend
-* `routes/` - Rutas de la API
-* `middleware/` - Middleware personalizado
-* `services/` - Servicios de negocio
+* `api/index.js` - Punto de entrada principal de la API REST
+* Express.js para manejo de rutas y middleware
+* Conexión a PostgreSQL mediante driver nativo
+* Autenticación mediante Firebase Auth tokens
+* Webhooks para recibir notificaciones de pagos
 
-=== Base de Datos (Firebase)
+=== Base de Datos (PostgreSQL)
 
-Firebase proporciona:
+PostgreSQL almacena:
 
-* Firestore para datos
-* Firebase Auth para autenticación
-* Firebase Storage para archivos
-* Firebase Functions para lógica del servidor
+* Todas las entidades del modelo de datos (RESERVATION, PAYMENT, CLIENT, etc.)
+* Relaciones entre entidades mediante claves foráneas
+* Índices para optimizar consultas de disponibilidad
+* Transacciones para garantizar consistencia de datos
+
+Ver xref:data-model.adoc[Modelo de Datos] para más detalles.
+
+=== Autenticación (Firebase Auth)
+
+Firebase Auth proporciona:
+
+* Autenticación de usuarios (email/password, OAuth, etc.)
+* Gestión de tokens JWT
+* Verificación de tokens en el backend
+* Integración con USER (no es tabla física, referencia a Firebase)
 
 == Estructura del Proyecto
 
 ```
 unosportclub/
 ├── projects/
-│   └── panel/          # Frontend Angular
-├── functions/           # Backend Node.js
-│   └── routes/         # Rutas de API
-├── docs/               # Documentación
+│   └── panel/              # Frontend Angular
+├── functions/
+│   └── api/
+│       └── index.js        # API REST principal (Firebase Functions)
+├── docs/                    # Documentación
 └── ...
 ```
 
 == Flujo de Datos
 
 1. El usuario interactúa con el frontend Angular
-2. Las peticiones se envían al backend Express
-3. El backend procesa la lógica de negocio
-4. Se accede a Firebase para persistencia
-5. La respuesta se envía de vuelta al frontend
+2. Las peticiones HTTP se envían a Firebase Functions (`api/index.js`)
+3. Firebase Functions valida el token de autenticación
+4. El backend procesa la lógica de negocio
+5. Se accede a PostgreSQL para persistencia de datos
+6. La respuesta se envía de vuelta al frontend
+7. WebSocket notifica eventos en tiempo real (pagos, reservas)
 
 == Seguridad
 
 === Autenticación
 
-* Firebase Auth maneja la autenticación
+* Firebase Auth maneja la autenticación de usuarios
 * Tokens JWT para sesiones
-* Refresh tokens para renovación
+* Validación de tokens en cada petición a la API
+* Refresh tokens para renovación automática
 
 === Autorización
 
-* Roles y permisos por usuario
-* Validación en backend
-* Guards en frontend
+* Roles y permisos por usuario (OPERATOR, CLIENT)
+* Validación en backend (Firebase Functions)
+* Guards en frontend (Angular)
+* Verificación de permisos antes de operaciones sensibles
+
+=== Base de Datos
+
+* Conexiones seguras mediante SSL/TLS
+* Prepared statements para prevenir SQL injection
+* Validación de datos en múltiples capas
+* Transacciones para operaciones críticas
 
 == Escalabilidad
 
 El sistema está diseñado para escalar:
 
-* Firebase escala automáticamente
-* Express puede escalarse horizontalmente
-* Angular se puede optimizar con lazy loading
+* Firebase Functions escala automáticamente según demanda
+* PostgreSQL puede escalarse vertical y horizontalmente
+* Angular se puede optimizar con lazy loading y code splitting
+* WebSocket maneja múltiples conexiones concurrentes
+* Caché de consultas frecuentes (disponibilidad)
+
+== Integraciones
+
+=== Gateway de Pagos
+
+* Webhook para recibir notificaciones de pagos
+* Procesamiento asíncrono de pagos huérfanos
+* Alineación automática de pagos con reservas
+
+=== WebSocket
+
+* Notificaciones en tiempo real de:
+  * Pagos recibidos
+  * Cambios de estado de reservas
+  * Disponibilidad actualizada
 
 

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "antora --fetch antora-playbook.yml",
     "build:local": "antora antora-playbook.yml",
-    "preview": "antora --fetch antora-playbook.yml && cp -r .well-known build/site/ && npx http-server build/site -p 8080"
+    "preview": "antora --fetch antora-playbook.yml  && npx http-server build/site -p 8080"
   },
   "keywords": [
     "documentation",
@@ -19,7 +19,9 @@
     "@antora/cli": "^3.1.7",
     "@antora/lunr-extension": "^1.0.0-alpha.10",
     "@antora/pdf-extension": "^1.0.0-beta.13",
-    "@antora/site-generator-default": "^3.1.7"
+    "@antora/site-generator-default": "^3.1.7",
+    "@sntke/antora-mermaid-extension": "^0.0.8",
+    "asciidoctor-kroki": "^0.18.1"
   },
   "dependencies": {
     "asciidoctor-pdf": "^1.0.0-alpha.16"
