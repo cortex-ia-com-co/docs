@@ -1,0 +1,740 @@
+= Modelo de Datos
+
+Este documento describe el modelo de datos completo de UnoSportClub.
+
+== Visión General
+
+El modelo de datos está centrado en la entidad `RESERVATION`, que representa el núcleo del negocio: las reservas de canchas deportivas.
+
+La base de datos es PostgreSQL y se accede exclusivamente a través de una API REST implementada en `api/index.js` (Firebase Functions).
+
+== Entidad Central: RESERVATION
+
+La entidad `RESERVATION` es el corazón del sistema y conecta todas las demás entidades:
+
+* Cada reserva pertenece a un `OPERATOR` (quien la gestiona)
+* Cada reserva pertenece a un `CLIENT` (quien la utiliza)
+* Cada reserva está asociada a una `COURT` (cancha reservada)
+* Cada reserva tiene un `RESERVATION_TYPE` (tipo de reserva)
+* Cada reserva puede tener múltiples `PAYMENT` (pagos)
+* Cada reserva puede tener `DISCOUNT` (descuentos aplicados)
+* El precio final de una reserva se calcula aplicando `TARIFF_ADJUSTMENT` al precio base de la `COURT`
+
+== Esquema de Base de Datos
+
+=== RESERVATION
+
+Tabla principal que almacena las reservas de canchas.
+
+[cols="1,2,2,3"]
+|===
+|Campo |Tipo |Restricciones |Descripción
+
+|id |int |PK, NOT NULL, AUTO_INCREMENT |Identificador único de la reserva
+|operator_id |int |FK → OPERATOR.id, NOT NULL |Operador que gestiona la reserva
+|client_id |int |FK → CLIENT.id, NOT NULL |Cliente que realiza la reserva
+|court_id |int |FK → COURT.id, NOT NULL |Cancha reservada
+|reservation_type_id |int |FK → RESERVATION_TYPE.id, NOT NULL |Tipo de reserva
+|checking |datetime |NULL |Fecha y hora de entrada (check-in)
+|checkout |datetime |NULL |Fecha y hora de salida (check-out)
+|notes |string |NULL |Notas adicionales sobre la reserva
+|updated_at |datetime |NOT NULL |Fecha de última actualización
+|created_at |datetime |NOT NULL |Fecha de creación
+|===
+
+=== RESERVATION_TYPE
+
+Tipos de reserva disponibles en el sistema.
+
+[cols="1,2,2,3"]
+|===
+|Campo |Tipo |Restricciones |Descripción
+
+|id |int |PK, NOT NULL, AUTO_INCREMENT |Identificador único
+|name |string |NOT NULL |Nombre del tipo de reserva
+|description |string |NULL |Descripción del tipo
+|===
+
+=== OPERATOR
+
+Operadores del sistema que gestionan reservas.
+
+[cols="1,2,2,3"]
+|===
+|Campo |Tipo |Restricciones |Descripción
+
+|id |int |PK, NOT NULL, AUTO_INCREMENT |Identificador único
+|user_id |int |FK → USER.id, NOT NULL |Usuario asociado (Firebase Auth)
+|===
+
+=== CLIENT
+
+Clientes que realizan reservas.
+
+[cols="1,2,2,3"]
+|===
+|Campo |Tipo |Restricciones |Descripción
+
+|id |int |PK, NOT NULL, AUTO_INCREMENT |Identificador único
+|user_id |int |FK → USER.id, NOT NULL |Usuario asociado (Firebase Auth)
+|client_type_id |int |FK → CLIENT_TYPE.id, NOT NULL |Tipo de cliente
+|===
+
+=== CLIENT_TYPE
+
+Tipos de cliente (ej: regular, premium, corporativo).
+
+[cols="1,2,2,3"]
+|===
+|Campo |Tipo |Restricciones |Descripción
+
+|id |int |PK, NOT NULL, AUTO_INCREMENT |Identificador único
+|name |string |NOT NULL |Nombre del tipo
+|description |string |NULL |Descripción del tipo
+|===
+
+=== COURT
+
+Canchas disponibles para reservar.
+
+[cols="1,2,2,3"]
+|===
+|Campo |Tipo |Restricciones |Descripción
+
+|id |int |PK, NOT NULL, AUTO_INCREMENT |Identificador único
+|court_type_id |int |FK → COURT_TYPE.id, NOT NULL |Tipo de cancha
+|name |string |NOT NULL |Nombre de la cancha
+|cost |decimal(10,2) |NOT NULL, DEFAULT 0.00 |Costo de mantenimiento de la cancha
+|price |decimal(10,2) |NOT NULL, DEFAULT 0.00 |Precio base de alquiler de la cancha
+|===
+
+=== COURT_TYPE
+
+Tipos de cancha (ej: fútbol, básquet, tenis).
+
+[cols="1,2,2,3"]
+|===
+|Campo |Tipo |Restricciones |Descripción
+
+|id |int |PK, NOT NULL, AUTO_INCREMENT |Identificador único
+|name |string |NOT NULL |Nombre del tipo
+|description |string |NULL |Descripción del tipo
+|created_at |datetime |NOT NULL |Fecha de creación
+|===
+
+=== PAYMENT
+
+Pagos asociados a reservas. **Importante**: Esta tabla puede contener registros sin `reservation_id` (pagos huérfanos).
+
+[cols="1,2,2,3"]
+|===
+|Campo |Tipo |Restricciones |Descripción
+
+|id |int |PK, NOT NULL, AUTO_INCREMENT |Identificador único
+|reservation_id |int |FK → RESERVATION.id, NULL |Reservación asociada (puede ser NULL)
+|amount |float |NOT NULL |Monto del pago
+|transaction_id |string |NOT NULL |ID de transacción del gateway
+|gateway_response |string |NULL |Respuesta completa del gateway de pago
+|status |string |NOT NULL |Estado del pago (pending, completed, failed)
+|date |datetime |NOT NULL |Fecha del pago
+|description |string |NULL |Descripción del pago
+|===
+
+==== Pagos Huérfanos
+
+Los pagos pueden existir sin reservación asignada (`reservation_id = NULL`). Esto ocurre cuando:
+
+1. El webservice recibe un pago del gateway de pago sin conocer la reservación asociada
+2. El sistema registra el pago con todos los campos disponibles (`transaction_id`, `amount`, `status`, etc.) pero sin `reservation_id`
+3. Cuando el usuario está completando el proceso de pago, el sistema busca pagos huérfanos que coincidan (por `transaction_id` o `ref_code`)
+4. Si encuentra un pago huérfano coincidente, lo alinea actualizando `reservation_id`
+
+Este mecanismo permite manejar casos donde:
+* El pago se registra antes de que el usuario complete el proceso de reserva
+* El pago se registra después pero el sistema necesita buscarlo y asociarlo
+
+=== DISCOUNT
+
+Descuentos aplicados a reservas.
+
+[cols="1,2,2,3"]
+|===
+|Campo |Tipo |Restricciones |Descripción
+
+|id |int |PK, NOT NULL, AUTO_INCREMENT |Identificador único
+|reservation_id |int |FK → RESERVATION.id, NOT NULL |Reservación asociada
+|amount |float |NOT NULL |Monto del descuento
+|===
+
+=== TARIFF_ADJUSTMENT
+
+Ajustes de tarifas aplicables a las reservas. Permite modificar el precio base de una cancha según el tipo de cliente, tipo de reserva y rangos de fechas/horas según RFC 5545 (iCalendar).
+
+[cols="1,2,2,3"]
+|===
+|Campo |Tipo |Restricciones |Descripción
+
+|id |int |PK, NOT NULL, AUTO_INCREMENT |Identificador único
+|court_id |int |FK → COURT.id, NULL |Cancha específica (NULL = todas las canchas)
+|client_type_id |int |FK → CLIENT_TYPE.id, NULL |Tipo de cliente (NULL = todos los tipos)
+|reservation_type_id |int |FK → RESERVATION_TYPE.id, NULL |Tipo de reserva (NULL = todos los tipos)
+|rrule |string(500) |NULL |Regla recurrente según RFC 5545 (RRULE)
+|dtstart |datetime |NULL |Fecha/hora de inicio del rango de aplicación
+|dtend |datetime |NULL |Fecha/hora de fin del rango de aplicación
+|adjustment |string(50) |NOT NULL |Ajuste de tarifa (ej: "-10%", "5000", "-2000", "15%")
+|description |text |NULL |Descripción del ajuste
+|is_active |bool |NOT NULL, DEFAULT TRUE |Indica si el ajuste está activo
+|created_at |datetime |NOT NULL |Fecha de creación
+|updated_at |datetime |NOT NULL |Fecha de última actualización
+|===
+
+==== Formato de Ajuste (adjustment)
+
+El campo `adjustment` permite especificar ajustes de tarifa con las siguientes reglas:
+
+* **Descuento vs Incremento**: Si el valor comienza con `-`, es un descuento; de lo contrario, es un incremento.
+* **Porcentaje vs Valor Neto**: Si el valor termina con `%`, el ajuste es un porcentaje sobre el precio base; de lo contrario, es un valor neto.
+
+**Ejemplos:**
+* `"-10%"`: Descuento del 10% sobre el precio base
+* `"15%"`: Incremento del 15% sobre el precio base
+* `"-2000"`: Descuento de $2000 sobre el precio base
+* `"5000"`: Incremento de $5000 sobre el precio base
+
+==== Rangos de Fechas (RFC 5545)
+
+Los campos `dtstart`, `dtend` y `rrule` permiten definir ajustes que se aplican en rangos específicos de tiempo:
+
+* **Rango simple**: Usar `dtstart` y `dtend` para un período específico
+* **Rango recurrente**: Usar `rrule` con sintaxis RFC 5545 para definir patrones recurrentes (ej: todos los lunes, todos los días festivos, etc.)
+
+**Ejemplos de RRULE:**
+* `FREQ=DAILY;BYDAY=MO,WE,FR`: Todos los lunes, miércoles y viernes
+* `FREQ=WEEKLY;BYDAY=SA,SU`: Todos los sábados y domingos
+* `FREQ=MONTHLY;BYMONTHDAY=1`: El primer día de cada mes
+
+=== USER
+
+Interfaz con Firebase Auth. Esta no es una tabla física en PostgreSQL, sino una referencia a los usuarios de Firebase Authentication.
+
+[cols="1,2,2,3"]
+|===
+|Campo |Tipo |Restricciones |Descripción
+
+|id |string |PK, NOT NULL |Firebase UID
+|email |string |NOT NULL |Email del usuario
+|emailVerified |bool |NOT NULL |Email verificado
+|displayName |string |NULL |Nombre para mostrar
+|FirebaseId |string |NOT NULL |ID de Firebase (redundante con id)
+|===
+
+== Relaciones
+
+=== Relaciones Principales
+
+* `RESERVATION` → `OPERATOR`: Muchas reservas pertenecen a un operador
+* `RESERVATION` → `CLIENT`: Muchas reservas pertenecen a un cliente
+* `RESERVATION` → `COURT`: Muchas reservas pertenecen a una cancha
+* `RESERVATION` → `RESERVATION_TYPE`: Muchas reservas tienen un tipo
+* `RESERVATION` → `PAYMENT`: Una reserva puede tener múltiples pagos (relación opcional)
+* `RESERVATION` → `DISCOUNT`: Una reserva puede tener múltiples descuentos
+
+=== Relaciones de Usuario
+
+* `OPERATOR` → `USER`: Un operador es un usuario
+* `CLIENT` → `USER`: Un cliente es un usuario
+* `CLIENT` → `CLIENT_TYPE`: Un cliente tiene un tipo
+
+=== Relaciones de Cancha
+
+* `COURT` → `COURT_TYPE`: Una cancha tiene un tipo
+* `TARIFF_ADJUSTMENT` → `COURT`: Un ajuste puede aplicarse a una cancha específica (opcional)
+* `TARIFF_ADJUSTMENT` → `CLIENT_TYPE`: Un ajuste puede aplicarse a un tipo de cliente (opcional)
+* `TARIFF_ADJUSTMENT` → `RESERVATION_TYPE`: Un ajuste puede aplicarse a un tipo de reserva (opcional)
+
+== Índices Recomendados
+
+Para optimizar las consultas más frecuentes, se recomienda crear índices en:
+
+* `RESERVATION.court_id` + `RESERVATION.checking` + `RESERVATION.checkout` (búsqueda de disponibilidad)
+* `RESERVATION.client_id` + `RESERVATION.created_at` (reservas por cliente)
+* `PAYMENT.transaction_id` (búsqueda de pagos huérfanos)
+* `PAYMENT.reservation_id` (pagos por reserva)
+* `CLIENT.user_id` (búsqueda de cliente por usuario)
+* `OPERATOR.user_id` (búsqueda de operador por usuario)
+* `TARIFF_ADJUSTMENT.court_id` (ajustes por cancha)
+* `TARIFF_ADJUSTMENT.client_type_id` (ajustes por tipo de cliente)
+* `TARIFF_ADJUSTMENT.reservation_type_id` (ajustes por tipo de reserva)
+* `TARIFF_ADJUSTMENT.dtstart` + `TARIFF_ADJUSTMENT.dtend` (búsqueda de ajustes por rango de fechas)
+* `TARIFF_ADJUSTMENT.is_active` (filtrado de ajustes activos)
+
+== Restricciones y Triggers
+
+=== Prevención de Solapamiento de Reservas
+
+El sistema implementa un trigger que previene que una cancha se reserve dos veces en el mismo rango de tiempo.
+
+**Función:** `check_reservation_overlap()`
+
+**Trigger:** `trigger_check_reservation_overlap` (BEFORE INSERT OR UPDATE)
+
+**Comportamiento:**
+
+* Verifica que `checkout` sea posterior a `checking` (si ambos están definidos)
+* Previene que dos reservas para la misma cancha (`court_id`) tengan rangos de tiempo solapados
+* Solo aplica cuando `checking` y `checkout` no son NULL
+* En caso de UPDATE, excluye la misma reserva de la verificación
+
+**Lógica de Solapamiento:**
+
+Dos rangos de tiempo se solapan si:
+----
+(checking1 < checkout2) AND (checking2 < checkout1)
+----
+
+**Mensajes de Error:**
+
+* Si `checkout <= checking`: "La fecha de checkout debe ser posterior a la fecha de checking"
+* Si hay solapamiento: "La cancha {court_id} ya está reservada en el rango de tiempo especificado ({checking} - {checkout})"
+
+**Ejemplo:**
+
+Si existe una reserva para la cancha 1 de 10:00 a 12:00, no se permitirá crear otra reserva para la misma cancha en los siguientes casos:
+
+* 09:00 a 11:00 (solapamiento parcial al inicio)
+* 11:00 a 13:00 (solapamiento parcial al final)
+* 10:30 a 11:30 (completamente dentro del rango)
+* 09:00 a 13:00 (completamente abarca el rango)
+
+Sí se permitiría:
+
+* 08:00 a 10:00 (termina justo cuando empieza la otra)
+* 12:00 a 14:00 (empieza justo cuando termina la otra)
+* 13:00 a 15:00 (no hay solapamiento)
+
+=== Actualización Automática de Timestamps
+
+**Función:** `update_updated_at_column()`
+
+**Trigger:** `update_reservation_updated_at` (BEFORE UPDATE)
+
+Actualiza automáticamente el campo `updated_at` de la tabla `reservation` cada vez que se modifica un registro.
+
+== Definición en YAML
+
+A continuación se presenta el modelo de datos en formato YAML genérico, fácil de leer por máquinas:
+
+[source,yaml]
+----
+database:
+  name: unosportclub
+  type: postgresql
+
+tables:
+  reservation:
+    primary_key: id
+    columns:
+      id:
+        type: integer
+        auto_increment: true
+        not_null: true
+      operator_id:
+        type: integer
+        not_null: true
+        foreign_key:
+          table: operator
+          column: id
+      client_id:
+        type: integer
+        not_null: true
+        foreign_key:
+          table: client
+          column: id
+      court_id:
+        type: integer
+        not_null: true
+        foreign_key:
+          table: court
+          column: id
+      reservation_type_id:
+        type: integer
+        not_null: true
+        foreign_key:
+          table: reservation_type
+          column: id
+      checking:
+        type: datetime
+        nullable: true
+      checkout:
+        type: datetime
+        nullable: true
+      notes:
+        type: text
+        nullable: true
+      updated_at:
+        type: datetime
+        not_null: true
+        default: CURRENT_TIMESTAMP
+      created_at:
+        type: datetime
+        not_null: true
+        default: CURRENT_TIMESTAMP
+    indexes:
+      idx_reservation_court_dates:
+        columns: [court_id, checking, checkout]
+        unique: false
+      idx_reservation_client_created:
+        columns: [client_id, created_at]
+        unique: false
+
+  reservation_type:
+    primary_key: id
+    columns:
+      id:
+        type: integer
+        auto_increment: true
+        not_null: true
+      name:
+        type: varchar
+        length: 255
+        not_null: true
+      description:
+        type: text
+        nullable: true
+
+  operator:
+    primary_key: id
+    columns:
+      id:
+        type: integer
+        auto_increment: true
+        not_null: true
+      user_id:
+        type: varchar
+        length: 255
+        not_null: true
+        foreign_key:
+          table: user
+          column: id
+    indexes:
+      idx_operator_user:
+        columns: [user_id]
+        unique: false
+
+  client:
+    primary_key: id
+    columns:
+      id:
+        type: integer
+        auto_increment: true
+        not_null: true
+      user_id:
+        type: varchar
+        length: 255
+        not_null: true
+        foreign_key:
+          table: user
+          column: id
+      client_type_id:
+        type: integer
+        not_null: true
+        foreign_key:
+          table: client_type
+          column: id
+    indexes:
+      idx_client_user:
+        columns: [user_id]
+        unique: false
+
+  client_type:
+    primary_key: id
+    columns:
+      id:
+        type: integer
+        auto_increment: true
+        not_null: true
+      name:
+        type: varchar
+        length: 255
+        not_null: true
+      description:
+        type: text
+        nullable: true
+
+  court:
+    primary_key: id
+    columns:
+      id:
+        type: integer
+        auto_increment: true
+        not_null: true
+      court_type_id:
+        type: integer
+        not_null: true
+        foreign_key:
+          table: court_type
+          column: id
+      name:
+        type: varchar
+        length: 255
+        not_null: true
+      cost:
+        type: decimal
+        precision: 10
+        scale: 2
+        not_null: true
+        default: 0.00
+      price:
+        type: decimal
+        precision: 10
+        scale: 2
+        not_null: true
+        default: 0.00
+
+  court_type:
+    primary_key: id
+    columns:
+      id:
+        type: integer
+        auto_increment: true
+        not_null: true
+      name:
+        type: varchar
+        length: 255
+        not_null: true
+      description:
+        type: text
+        nullable: true
+      created_at:
+        type: datetime
+        not_null: true
+        default: CURRENT_TIMESTAMP
+
+  payment:
+    primary_key: id
+    columns:
+      id:
+        type: integer
+        auto_increment: true
+        not_null: true
+      reservation_id:
+        type: integer
+        nullable: true
+        foreign_key:
+          table: reservation
+          column: id
+      amount:
+        type: decimal
+        precision: 10
+        scale: 2
+        not_null: true
+      transaction_id:
+        type: varchar
+        length: 255
+        not_null: true
+        unique: true
+      gateway_response:
+        type: text
+        nullable: true
+      status:
+        type: varchar
+        length: 50
+        not_null: true
+      date:
+        type: datetime
+        not_null: true
+      description:
+        type: text
+        nullable: true
+    indexes:
+      idx_payment_transaction:
+        columns: [transaction_id]
+        unique: true
+      idx_payment_reservation:
+        columns: [reservation_id]
+        unique: false
+
+  discount:
+    primary_key: id
+    columns:
+      id:
+        type: integer
+        auto_increment: true
+        not_null: true
+      reservation_id:
+        type: integer
+        not_null: true
+        foreign_key:
+          table: reservation
+          column: id
+      amount:
+        type: decimal
+        precision: 10
+        scale: 2
+        not_null: true
+
+  user:
+    primary_key: id
+    columns:
+      id:
+        type: varchar
+        length: 255
+        not_null: true
+      email:
+        type: varchar
+        length: 255
+        not_null: true
+        unique: true
+      email_verified:
+        type: boolean
+        not_null: true
+        default: false
+      display_name:
+        type: varchar
+        length: 255
+        nullable: true
+      firebase_id:
+        type: varchar
+        length: 255
+        not_null: true
+        unique: true
+
+  tariff_adjustment:
+    primary_key: id
+    columns:
+      id:
+        type: integer
+        auto_increment: true
+        not_null: true
+      court_id:
+        type: integer
+        nullable: true
+        foreign_key:
+          table: court
+          column: id
+      client_type_id:
+        type: integer
+        nullable: true
+        foreign_key:
+          table: client_type
+          column: id
+      reservation_type_id:
+        type: integer
+        nullable: true
+        foreign_key:
+          table: reservation_type
+          column: id
+      rrule:
+        type: varchar
+        length: 500
+        nullable: true
+      dtstart:
+        type: datetime
+        nullable: true
+      dtend:
+        type: datetime
+        nullable: true
+      adjustment:
+        type: varchar
+        length: 50
+        not_null: true
+      description:
+        type: text
+        nullable: true
+      is_active:
+        type: boolean
+        not_null: true
+        default: true
+      created_at:
+        type: datetime
+        not_null: true
+        default: CURRENT_TIMESTAMP
+      updated_at:
+        type: datetime
+        not_null: true
+        default: CURRENT_TIMESTAMP
+    indexes:
+      idx_tariff_adjustment_court:
+        columns: [court_id]
+        unique: false
+      idx_tariff_adjustment_client_type:
+        columns: [client_type_id]
+        unique: false
+      idx_tariff_adjustment_reservation_type:
+        columns: [reservation_type_id]
+        unique: false
+      idx_tariff_adjustment_dates:
+        columns: [dtstart, dtend]
+        unique: false
+      idx_tariff_adjustment_active:
+        columns: [is_active]
+        unique: false
+
+relationships:
+  - from: reservation
+    to: operator
+    type: many_to_one
+    foreign_key: operator_id
+  - from: reservation
+    to: client
+    type: many_to_one
+    foreign_key: client_id
+  - from: reservation
+    to: court
+    type: many_to_one
+    foreign_key: court_id
+  - from: reservation
+    to: reservation_type
+    type: many_to_one
+    foreign_key: reservation_type_id
+  - from: reservation
+    to: payment
+    type: one_to_many
+    foreign_key: reservation_id
+    nullable: true
+  - from: reservation
+    to: discount
+    type: one_to_many
+    foreign_key: reservation_id
+  - from: operator
+    to: user
+    type: many_to_one
+    foreign_key: user_id
+  - from: client
+    to: user
+    type: many_to_one
+    foreign_key: user_id
+  - from: client
+    to: client_type
+    type: many_to_one
+    foreign_key: client_type_id
+  - from: court
+    to: court_type
+    type: many_to_one
+    foreign_key: court_type_id
+  - from: tariff_adjustment
+    to: court
+    type: many_to_one
+    foreign_key: court_id
+    nullable: true
+  - from: tariff_adjustment
+    to: client_type
+    type: many_to_one
+    foreign_key: client_type_id
+    nullable: true
+  - from: tariff_adjustment
+    to: reservation_type
+    type: many_to_one
+    foreign_key: reservation_type_id
+    nullable: true
+----
+
+== Migraciones
+
+Las migraciones de base de datos deben seguir el patrón de versionado semántico y estar documentadas en el directorio `migrations/`.
+
+Cada migración debe incluir:
+* Script SQL de creación/modificación
+* Script de rollback
+* Documentación de cambios
+

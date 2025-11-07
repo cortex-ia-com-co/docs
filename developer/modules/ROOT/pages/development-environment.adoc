@@ -1,0 +1,494 @@
+= Preparación del Entorno de Desarrollo
+
+Esta guía detallada te ayudará a configurar tu entorno de desarrollo local para trabajar en UnoSportClub.
+
+== Requisitos del Sistema
+
+=== Software Requerido
+
+* **Node.js**: Versión 22 o superior
+* **npm**: Versión 9 o superior
+* **Git**: Para control de versiones
+* **PostgreSQL**: Versión 14 o superior (local o acceso a instancia remota)
+* **Firebase CLI**: Para gestión de Firebase
+* **Angular CLI**: Incluido como dependencia del proyecto
+
+=== Verificar Instalaciones
+
+[source,bash]
+----
+node --version      # Debe ser v22.x o superior
+npm --version       # Debe ser 9.x o superior
+git --version
+psql --version      # Debe ser PostgreSQL 14+
+firebase --version
+----
+
+=== Herramientas Recomendadas
+
+* **Editor de código**: Visual Studio Code (recomendado)
+* **Extensiones VS Code**:
+  * Angular Language Service
+  * ESLint
+  * Prettier
+  * GitLens
+  * PostgreSQL
+* **Cliente PostgreSQL**: pgAdmin, DBeaver, o psql CLI
+* **Cliente REST**: Postman o Insomnia (para probar APIs)
+
+== Configuración Inicial del Proyecto
+
+=== Clonar el Repositorio
+
+[source,bash]
+----
+git clone <url-del-repositorio>
+cd unosportclub
+----
+
+=== Instalar Dependencias
+
+[source,bash]
+----
+# Instalar dependencias del proyecto principal
+npm install
+
+# Instalar dependencias de Functions
+cd functions
+npm install
+cd ..
+----
+
+El comando `npm install` en la raíz ejecutará automáticamente las migraciones de base de datos si las variables de entorno están configuradas.
+
+== Configuración de Base de Datos Local
+
+=== Instalar PostgreSQL
+
+**Ubuntu/Debian:**
+
+[source,bash]
+----
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+sudo systemctl start postgresql
+sudo systemctl enable postgresql
+----
+
+**macOS (Homebrew):**
+
+[source,bash]
+----
+brew install postgresql@14
+brew services start postgresql@14
+----
+
+**Windows:**
+
+Descarga el instalador desde https://www.postgresql.org/download/windows/
+
+=== Crear Base de Datos de Desarrollo
+
+[source,bash]
+----
+# Crear usuario (si no existe)
+sudo -u postgres createuser --interactive unosportclub
+
+# Crear base de datos
+sudo -u postgres createdb unosportclub
+
+# O usando psql directamente
+psql -U postgres
+CREATE USER unosportclub WITH PASSWORD 'tu_password';
+CREATE DATABASE unosportclub OWNER unosportclub;
+GRANT ALL PRIVILEGES ON DATABASE unosportclub TO unosportclub;
+\q
+----
+
+=== Configurar Variables de Entorno
+
+Crea el archivo `functions/.env`:
+
+[source,bash]
+----
+cd functions
+cp .env.example .env
+----
+
+Edita `functions/.env` con tu configuración local:
+
+[source,env]
+----
+# Base de datos local
+DATABASE_URL=postgresql://unosportclub:tu_password@localhost:5432/unosportclub
+
+# O variables individuales:
+# DB_HOST=localhost
+# DB_PORT=5432
+# DB_NAME=unosportclub
+# DB_USER=unosportclub
+# DB_PASSWORD=tu_password
+# DB_SSL=false
+----
+
+=== Ejecutar Migraciones y Seeders
+
+[source,bash]
+----
+# Desde la raíz del proyecto
+npm run db:migrate
+----
+
+Esto creará todas las tablas y cargará los datos iniciales.
+
+=== Verificar Instalación de Base de Datos
+
+[source,bash]
+----
+psql -U unosportclub -d unosportclub -c "\dt"
+----
+
+Deberías ver las siguientes tablas:
+
+* `user`
+* `client_type`
+* `court_type`
+* `reservation_type`
+* `operator`
+* `client`
+* `court`
+* `reservation`
+* `payment`
+* `discount`
+* `schema_migrations`
+
+== Configuración de Firebase
+
+=== Instalar Firebase CLI
+
+[source,bash]
+----
+npm install -g firebase-tools
+----
+
+=== Iniciar Sesión en Firebase
+
+[source,bash]
+----
+firebase login
+----
+
+=== Inicializar Firebase en el Proyecto
+
+Si el proyecto aún no está inicializado:
+
+[source,bash]
+----
+firebase init
+----
+
+Selecciona:
+* **Hosting**: Sí
+* **Functions**: Sí
+* **Firestore**: Opcional (si lo usas)
+* **Storage**: Opcional
+
+=== Configurar Proyecto Firebase
+
+[source,bash]
+----
+firebase use --add
+----
+
+Selecciona tu proyecto de desarrollo.
+
+== Configuración del Editor
+
+=== Visual Studio Code
+
+Crea o edita `.vscode/settings.json`:
+
+[source,json]
+----
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true,
+    "**/dist": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/.angular": true
+  }
+}
+----
+
+=== Configuración de ESLint
+
+El proyecto usa ESLint con configuración de Google. Asegúrate de tener la extensión instalada y que respete las reglas del proyecto.
+
+=== Configuración de Prettier
+
+El proyecto incluye configuración de Prettier en `package.json`. Asegúrate de que tu editor lo respete.
+
+== Estructura del Proyecto
+
+=== Directorios Principales
+
+[source,text]
+----
+unosportclub/
+├── src/                    # Código fuente Angular (aplicación principal)
+├── projects/
+│   ├── panel/             # Aplicación panel de administración
+│   └── sudo/              # Aplicación panel de control
+├── functions/             # Firebase Functions (Backend)
+│   ├── index.js           # Punto de entrada
+│   ├── routes/            # Rutas de la API
+│   ├── models/            # Modelos de datos
+│   └── db/                # Migraciones y seeders
+├── docs/                   # Documentación
+├── dist/                   # Build de producción (generado)
+└── firebase.json           # Configuración de Firebase
+----
+
+=== Archivos Importantes
+
+* `package.json`: Dependencias y scripts del proyecto principal
+* `functions/package.json`: Dependencias y scripts de Functions
+* `angular.json`: Configuración de Angular
+* `tsconfig.json`: Configuración de TypeScript
+* `firebase.json`: Configuración de Firebase Hosting y Functions
+* `functions/.env`: Variables de entorno (no se sube a Git)
+
+== Scripts de Desarrollo
+
+=== Scripts Principales
+
+[source,bash]
+----
+# Desarrollo
+npm start                  # Inicia servidor de desarrollo Angular
+npm run build              # Build de producción
+npm run watch              # Build en modo watch
+
+# Base de datos
+npm run db:migrate         # Ejecutar migraciones y seeders
+npm run db:uninstall       # Eliminar todas las tablas (CUIDADO)
+
+# Testing
+npm test                   # Ejecutar tests de Angular
+----
+
+=== Scripts de Functions
+
+[source,bash]
+----
+cd functions
+
+# Desarrollo
+npm run serve              # Inicia emulador de Functions
+npm run lint              # Verificar código con ESLint
+
+# Testing
+npm test                  # Ejecutar tests de Functions
+npm run test:watch        # Tests en modo watch
+npm run test:coverage     # Tests con cobertura
+----
+
+== Emuladores de Firebase
+
+=== Iniciar Emuladores Locales
+
+[source,bash]
+----
+firebase emulators:start
+----
+
+Esto iniciará:
+* **Functions Emulator**: `http://localhost:5001`
+* **Hosting Emulator**: `http://localhost:5000`
+* **Firestore Emulator**: `http://localhost:8080` (si está configurado)
+
+=== Configuración de Emuladores
+
+Crea o edita `firebase.json` para configurar los emuladores:
+
+[source,json]
+----
+{
+  "emulators": {
+    "functions": {
+      "port": 5001
+    },
+    "hosting": {
+      "port": 5000
+    },
+    "ui": {
+      "enabled": true,
+      "port": 4000
+    }
+  }
+}
+----
+
+Accede a la UI de emuladores en `http://localhost:4000`.
+
+== Flujo de Trabajo de Desarrollo
+
+=== 1. Crear una Rama
+
+[source,bash]
+----
+git checkout -b feature/nombre-de-la-feature
+----
+
+=== 2. Desarrollo Local
+
+[source,bash]
+----
+# Terminal 1: Servidor Angular
+npm start
+
+# Terminal 2: Emuladores Firebase
+firebase emulators:start
+
+# Terminal 3: Base de datos (si es necesario)
+psql -U unosportclub -d unosportclub
+----
+
+=== 3. Ejecutar Tests
+
+[source,bash]
+----
+# Tests de Angular
+npm test
+
+# Tests de Functions
+cd functions
+npm test
+----
+
+=== 4. Verificar Código
+
+[source,bash]
+----
+# Lint de Functions
+cd functions
+npm run lint
+
+# Build para verificar errores de TypeScript
+npm run build
+----
+
+=== 5. Commit y Push
+
+[source,bash]
+----
+git add .
+git commit -m "feat: descripción del cambio"
+git push origin feature/nombre-de-la-feature
+----
+
+== Configuración de Git
+
+=== .gitignore
+
+El proyecto incluye un `.gitignore` que excluye:
+
+* `node_modules/`
+* `dist/`
+* `.env` y `functions/.env`
+* Archivos de build y cache
+* Archivos del IDE
+
+=== Hooks de Git (Opcional)
+
+Puedes configurar pre-commit hooks para ejecutar lint y tests automáticamente usando herramientas como `husky`.
+
+== Solución de Problemas Comunes
+
+=== Error: Puerto ya en uso
+
+Si el puerto 4200 (Angular) o 5001 (Functions) está en uso:
+
+[source,bash]
+----
+# Encontrar proceso usando el puerto
+lsof -i :4200
+lsof -i :5001
+
+# Matar el proceso
+kill -9 <PID>
+----
+
+=== Error: Variables de Entorno No Cargadas
+
+Asegúrate de que:
+* El archivo `functions/.env` existe
+* Las variables están correctamente formateadas
+* No hay espacios alrededor del `=` en las variables
+
+=== Error: Base de Datos No Conecta
+
+Verifica:
+* PostgreSQL está corriendo: `sudo systemctl status postgresql`
+* Las credenciales en `.env` son correctas
+* El usuario tiene permisos: `GRANT ALL PRIVILEGES ON DATABASE unosportclub TO unosportclub;`
+
+=== Error: Migraciones No Se Ejecutan
+
+[source,bash]
+----
+# Ejecutar manualmente
+npm run db:migrate
+
+# Ver estado de migraciones
+psql -U unosportclub -d unosportclub -c "SELECT * FROM schema_migrations;"
+----
+
+=== Error: Build de Angular Falla
+
+[source,bash]
+----
+# Limpiar cache
+rm -rf node_modules .angular dist
+npm install
+npm run build
+----
+
+== Recursos Adicionales
+
+=== Documentación
+
+* xref:architecture.adoc[Arquitectura del Software]
+* xref:api-reference.adoc[Referencia de API]
+* xref:data-model.adoc[Modelo de Datos]
+* xref:workflows.adoc[Flujos de Trabajo]
+
+=== Enlaces Externos
+
+* https://angular.io/docs[Documentación de Angular]
+* https://firebase.google.com/docs[Documentación de Firebase]
+* https://expressjs.com/[Documentación de Express]
+* https://www.postgresql.org/docs[Documentación de PostgreSQL]
+* https://nodejs.org/docs[Documentación de Node.js]
+
+== Próximos Pasos
+
+Una vez configurado tu entorno:
+
+1. Revisa la xref:architecture.adoc[Arquitectura del Software]
+2. Familiarízate con el xref:data-model.adoc[Modelo de Datos]
+3. Explora la xref:api-reference.adoc[Referencia de API]
+4. Revisa los xref:workflows.adoc[Flujos de Trabajo] principales
+5. Consulta el xref:development-process.adoc[Proceso de Desarrollo]
+

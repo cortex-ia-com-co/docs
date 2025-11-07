@@ -1,0 +1,428 @@
+= Guía de Instalación
+
+Esta guía te ayudará a instalar y configurar UnoSportClub en Firebase desde cero.
+
+== Requisitos Previos
+
+Antes de comenzar, asegúrate de tener instalado:
+
+* Node.js 22 o superior
+* npm 9 o superior
+* Git
+* Una cuenta de Firebase
+* Una base de datos PostgreSQL (local o en la nube)
+
+=== Verificar Instalaciones
+
+[source,bash]
+----
+node --version    # Debe ser v22.x o superior
+npm --version     # Debe ser 9.x o superior
+git --version
+----
+
+== Instalación de Firebase CLI
+
+Instala Firebase CLI globalmente:
+
+[source,bash]
+----
+npm install -g firebase-tools
+----
+
+Verifica la instalación:
+
+[source,bash]
+----
+firebase --version
+----
+
+Inicia sesión en Firebase:
+
+[source,bash]
+----
+firebase login
+----
+
+== Configuración del Proyecto Firebase
+
+=== Crear Proyecto en Firebase Console
+
+1. Ve a https://console.firebase.google.com/
+2. Haz clic en "Agregar proyecto"
+3. Ingresa el nombre del proyecto (ej: `unosportclub-dev`)
+4. Sigue las instrucciones para completar la creación
+
+=== Inicializar Firebase en el Proyecto Local
+
+Clona o navega al directorio del proyecto:
+
+[source,bash]
+----
+cd unosportclub
+firebase init
+----
+
+Durante la inicialización, selecciona:
+
+* **Firebase Features**: Hosting, Functions
+* **Project**: Selecciona el proyecto creado anteriormente
+* **Functions**: 
+  - Language: JavaScript
+  - ESLint: Yes
+  - Install dependencies: Yes
+* **Hosting**:
+  - Public directory: `dist/unosportclub/browser`
+  - Single-page app: Yes
+  - Set up automatic builds: No (por ahora)
+
+== Configuración de Variables de Entorno
+
+=== Variables de Entorno para Functions
+
+Crea el archivo `functions/.env`:
+
+[source,bash]
+----
+cd functions
+cp .env.example .env
+----
+
+Edita `functions/.env` y configura:
+
+[source,env]
+----
+# Configuración de Base de Datos PostgreSQL
+DATABASE_URL=postgresql://usuario:password@host:puerto/nombre_bd
+
+# O usa variables individuales:
+# DB_HOST=localhost
+# DB_PORT=5432
+# DB_NAME=unosportclub
+# DB_USER=postgres
+# DB_PASSWORD=tu_password
+# DB_SSL=false
+----
+
+=== Variables de Entorno para Firebase Functions (Producción)
+
+Para producción, configura las variables usando Firebase Functions Config o Secret Manager:
+
+**Opción 1: Firebase Functions Config (valores no sensibles)**
+
+[source,bash]
+----
+firebase functions:config:set db.host="tu-host" db.port="5432" db.name="unosportclub"
+----
+
+**Opción 2: Secret Manager (valores sensibles - RECOMENDADO)**
+
+[source,bash]
+----
+# Crear secreto
+firebase functions:secrets:set DATABASE_URL
+
+# Se te pedirá ingresar el valor del secreto
+# Ingresa: postgresql://usuario:password@host:puerto/nombre_bd
+----
+
+Luego, en `functions/index.js`, accede al secreto:
+
+[source,javascript]
+----
+const { defineSecret } = require('firebase-functions/params');
+const databaseUrl = defineSecret('DATABASE_URL');
+----
+
+== Instalación de Dependencias
+
+=== Dependencias del Proyecto Principal
+
+[source,bash]
+----
+npm install
+----
+
+Este comando también ejecutará automáticamente las migraciones de base de datos si las variables de entorno están configuradas.
+
+=== Dependencias de Functions
+
+[source,bash]
+----
+cd functions
+npm install
+----
+
+== Configuración de Base de Datos PostgreSQL
+
+=== Crear Base de Datos
+
+Si usas PostgreSQL local:
+
+[source,bash]
+----
+createdb unosportclub
+----
+
+Si usas un servicio en la nube (Render, Heroku, AWS RDS, etc.), sigue las instrucciones de tu proveedor para crear la base de datos.
+
+=== Ejecutar Migraciones y Seeders
+
+Las migraciones se ejecutan automáticamente durante `npm install` si las variables de entorno están configuradas.
+
+Para ejecutarlas manualmente:
+
+[source,bash]
+----
+npm run db:migrate
+----
+
+Este comando:
+* Crea todas las tablas del modelo de datos
+* Carga los datos iniciales (tipos de cancha, tipos de cliente, tipos de reserva)
+
+=== Verificar Instalación de Base de Datos
+
+Puedes verificar que todo se haya instalado correctamente conectándote a PostgreSQL:
+
+[source,bash]
+----
+psql -h localhost -U postgres -d unosportclub -c "\dt"
+----
+
+Deberías ver las siguientes tablas:
+
+* `user`
+* `client_type`
+* `court_type`
+* `reservation_type`
+* `operator`
+* `client`
+* `court`
+* `reservation`
+* `payment`
+* `discount`
+* `schema_migrations`
+
+== Configuración de Firebase Functions
+
+=== Estructura de Functions
+
+El proyecto usa Express.js dentro de Firebase Functions. La estructura es:
+
+[source,text]
+----
+functions/
+├── index.js              # Punto de entrada principal
+├── routes/               # Rutas de la API
+│   ├── bookings.js
+│   ├── clients.js
+│   ├── courts.js
+│   ├── payments.js
+│   └── sudo.js
+├── models/               # Modelos de datos
+├── db/                   # Migraciones y seeders
+│   ├── migrations/
+│   └── seeders/
+└── package.json
+----
+
+=== Configurar Conexión a Base de Datos en Functions
+
+Asegúrate de que `functions/index.js` cargue las variables de entorno:
+
+[source,javascript]
+----
+require('dotenv').config();
+----
+
+Y que use el pool de conexiones correctamente:
+
+[source,javascript]
+----
+const { pool } = require('./db');
+----
+
+== Configuración de Firebase Hosting
+
+=== Build de la Aplicación Angular
+
+Antes de desplegar, construye la aplicación:
+
+[source,bash]
+----
+npm run build
+----
+
+Esto generará los archivos estáticos en `dist/unosportclub/browser/`.
+
+=== Configuración de Hosting Múltiple
+
+El proyecto tiene dos sitios de hosting configurados:
+
+* **prod**: Aplicación principal (`dist/unosportclub/browser`)
+* **control**: Panel de control (`dist/sudo/browser`)
+
+Para configurar los targets:
+
+[source,bash]
+----
+firebase target:apply hosting prod unosportclub-prod
+firebase target:apply hosting control unosportclub-control
+----
+
+== Despliegue
+
+=== Desplegar Functions
+
+[source,bash]
+----
+firebase deploy --only functions
+----
+
+O desplegar una función específica:
+
+[source,bash]
+----
+firebase deploy --only functions:api
+firebase deploy --only functions:sudo
+----
+
+=== Desplegar Hosting
+
+[source,bash]
+----
+firebase deploy --only hosting
+----
+
+O desplegar un target específico:
+
+[source,bash]
+----
+firebase deploy --only hosting:prod
+firebase deploy --only hosting:control
+----
+
+=== Desplegar Todo
+
+[source,bash]
+----
+firebase deploy
+----
+
+== Verificación Post-Instalación
+
+=== Verificar Functions
+
+Después del despliegue, verifica que las funciones estén activas:
+
+[source,bash]
+----
+firebase functions:list
+----
+
+=== Verificar Hosting
+
+Visita las URLs de tus sitios:
+
+* Producción: `https://tu-proyecto.web.app`
+* Control: `https://control.tu-proyecto.web.app` (si está configurado)
+
+=== Verificar API
+
+Prueba los endpoints de la API:
+
+[source,bash]
+----
+curl https://tu-proyecto.web.app/api/api-docs.json
+----
+
+== Solución de Problemas
+
+=== Error: Variables de Entorno No Configuradas
+
+Si ves el mensaje:
+
+[source,text]
+----
+⚠️  Variables de entorno de base de datos no configuradas
+----
+
+Verifica que:
+* El archivo `functions/.env` existe
+* Las variables están correctamente configuradas
+* El archivo no tiene errores de sintaxis
+
+=== Error: Conexión a Base de Datos Fallida
+
+Verifica:
+* Que PostgreSQL esté corriendo
+* Que las credenciales sean correctas
+* Que el firewall permita conexiones desde Firebase Functions
+* Que uses SSL si es requerido (bases de datos en la nube)
+
+=== Error: Migraciones No Se Ejecutan
+
+Si las migraciones no se ejecutan automáticamente:
+
+[source,bash]
+----
+npm run db:migrate
+----
+
+=== Error: Build de Angular Falla
+
+Asegúrate de:
+* Tener todas las dependencias instaladas: `npm install`
+* Tener Node.js 22 o superior
+* Verificar errores de TypeScript: `npm run build`
+
+== Comandos Útiles
+
+=== Desarrollo Local
+
+[source,bash]
+----
+# Iniciar emuladores de Firebase
+firebase emulators:start
+
+# Ejecutar migraciones manualmente
+npm run db:migrate
+
+# Ejecutar seeders manualmente
+npm run db:seed
+
+# Desinstalar base de datos (CUIDADO: elimina todo)
+npm run db:uninstall
+----
+
+=== Producción
+
+[source,bash]
+----
+# Ver logs de Functions
+firebase functions:log
+
+# Ver logs en tiempo real
+firebase functions:log --follow
+
+# Ver estado del proyecto
+firebase projects:list
+----
+
+== Próximos Pasos
+
+Una vez completada la instalación:
+
+1. Revisa la xref:developer::index.adoc[Documentación del Desarrollador]
+2. Configura Firebase Authentication según tus necesidades
+3. Revisa la xref:developer::api-reference.adoc[Referencia de API]
+4. Configura los permisos de Firestore si los usas
+5. Configura dominios personalizados en Firebase Hosting
+
+== Recursos Adicionales
+
+* https://firebase.google.com/docs[Documentación oficial de Firebase]
+* https://nodejs.org/docs[Documentación de Node.js]
+* https://www.postgresql.org/docs[Documentación de PostgreSQL]
+

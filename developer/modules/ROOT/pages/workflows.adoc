@@ -1,0 +1,122 @@
+= Flujos de Trabajo
+
+Este documento describe los flujos de trabajo principales del sistema UnoSportClub.
+
+== Flujo de Reserva por Cliente
+
+El flujo completo de reserva realizado por un cliente incluye los siguientes pasos:
+
+. Cliente accede al sitio web
+. Cliente hace clic en "Reservar"
+. Sistema muestra el asistente de reserva
+. Cliente selecciona cantidad de canchas necesarias
+. Sistema consulta disponibilidad
+. Sistema muestra calendario semanal con disponibilidad
+. Cliente selecciona fecha y hora
+. Sistema verifica canchas disponibles para esa fecha/hora
+. Cliente selecciona canchas específicas y define lapso de tiempo
+. Sistema crea la reserva (estado: amarillo/pendiente)
+. Sistema muestra datos de pago y campo para número de confirmación
+. Cliente ingresa número de confirmación de pago
+. Sistema conecta WebSocket para escuchar registro de pago
+. Sistema compara número de referencia:
+  * Si el pago fue registrado antes del número ingresado: alinea automáticamente
+  * Si el número fue ingresado antes del pago: espera coincidencia
+. Cuando hay coincidencia, sistema cambia estado de reserva a "comprada" (verde)
+. Cliente llega a la cancha y solicita Check-in
+. Operador registra la presencia del cliente
+. Sistema confirma asistencia registrada
+
+Ver diagrama de secuencia completo en xref:engineering.adoc#_diagrama_de_secuencia_flujo_de_reserva[Diagrama de Secuencia: Flujo de Reserva].
+
+== Flujo de Reserva por Operador
+
+El flujo de reserva realizado por un operador es similar pero gestionado directamente:
+
+. Operador accede al sistema
+. Operador crea reserva para cliente
+. Operador selecciona cantidad de canchas
+. Sistema consulta disponibilidad
+. Operador selecciona fecha, hora y canchas
+. Operador define lapso de tiempo
+. Sistema crea la reserva
+. Operador registra el pago
+. Sistema confirma pago
+. Cuando el cliente llega, operador registra asistencia
+. Sistema confirma asistencia registrada
+
+Ver diagrama de secuencia completo en xref:engineering.adoc#_diagrama_de_secuencia_flujo_de_reserva_operador[Diagrama de Secuencia: Flujo de Reserva (Operador)].
+
+== Flujo de Pagos Huérfanos
+
+Este flujo maneja el caso especial donde los pagos pueden registrarse sin conocer la reservación asociada:
+
+=== Escenario 1: Pago registrado antes del número ingresado
+
+. Webservice recibe notificación de pago del gateway
+. Sistema busca pago existente con `transaction_id`
+. Si no existe, crea pago huérfano (`reservation_id = NULL`)
+. Cliente ingresa número de confirmación de pago
+. Sistema busca pago huérfano que coincida con el número
+. Sistema alinea el pago con la reserva (`reservation_id` actualizado)
+. Sistema cambia estado de reserva a "comprada"
+
+=== Escenario 2: Número ingresado antes del pago registrado
+
+. Cliente ingresa número de confirmación de pago
+. Sistema busca pago huérfano con ese número
+. Si no encuentra, espera (WebSocket escucha)
+. Webservice recibe notificación de pago del gateway
+. Sistema crea pago huérfano
+. Sistema compara números y encuentra coincidencia
+. Sistema alinea el pago con la reserva
+. Sistema cambia estado de reserva a "comprada"
+
+=== Implementación
+
+El proceso de alineación se realiza mediante el endpoint:
+
+----
+PUT /payments/:id/align
+----
+
+O mediante búsqueda automática cuando:
+* Se crea una nueva reserva y hay pagos huérfanos pendientes
+* Se recibe un webhook de pago y hay reservas pendientes de pago
+
+== Flujo de Disponibilidad
+
+El sistema calcula la disponibilidad considerando:
+
+. Consulta todas las reservas existentes para el rango de fechas
+. Filtra por cancha y tipo de cancha si se especifica
+. Calcula slots disponibles basándose en:
+  * Horarios de operación de las canchas
+  * Reservas existentes (ocupadas)
+  * Cantidad de canchas requeridas vs disponibles
+. Retorna slots disponibles marcados como disponibles/no disponibles
+
+Un slot se marca como no disponible si:
+* Ya hay una reserva confirmada en ese horario
+* No hay suficientes canchas disponibles para la cantidad requerida
+
+== Flujo de Check-in
+
+Cuando un cliente llega a la cancha:
+
+. Cliente solicita Check-in (desde la aplicación o en persona)
+. Sistema notifica al operador sobre la solicitud
+. Operador verifica la identidad del cliente
+. Operador registra la presencia del cliente
+. Sistema actualiza `RESERVATION.checking` con la fecha/hora actual
+. Sistema confirma el Check-in al cliente
+
+== Flujo de Check-out
+
+Al finalizar el uso de la cancha:
+
+. Cliente o operador solicita Check-out
+. Sistema registra `RESERVATION.checkout` con la fecha/hora actual
+. Sistema calcula tiempo de uso real vs tiempo reservado
+. Sistema genera reporte si es necesario
+

@@ -1,0 +1,206 @@
+= Proceso de Desarrollo
+
+Nuestro proceso está diseñado para entregar software de alta calidad de manera eficiente y predecible. Seguimos el proceso de 5 etapas definido por https://coderic.org/development/[Coderic Development].
+
+== De la Idea al Producto
+
+El proceso de desarrollo en UnoSportClub sigue estas 5 etapas:
+
+== Etapa 1: Tienes una Idea
+
+Llegaste a UnoSportClub porque alguien te dijo que aquí puedes realizar tu proyecto. Empecemos por entender tu visión.
+
+=== Define tu Visión
+
+* ¿Qué problema resuelves?
+* ¿Para quién es tu solución?
+* ¿Qué hace especial tu idea?
+* ¿Cuál es tu visión a largo plazo?
+
+=== Validación
+
+* Investiga si ya existe algo similar
+* Habla con potenciales usuarios
+* Define tu propuesta de valor
+* Identifica tu mercado objetivo
+
+== Etapa 2: Planeación y Diseño
+
+Antes de escribir código, necesitas un plan sólido. Aquí definimos la estructura y arquitectura de tu proyecto.
+
+=== Roadmap
+
+* Define alcance del MVP
+* Prioriza features
+* Establece hitos
+* Crea timeline realista
+
+=== Arquitectura
+
+* Diagramas de flujo
+* Modelo de datos
+* Diagrama de componentes
+* Stack tecnológico
+
+=== Diseño UI/UX
+
+* Wireframes
+* User flows
+* Prototipos
+* Design system
+
+**Herramientas que usamos:** Figma (diseño), draw.io (diagramas), GitHub Projects (gestión)
+
+== Etapa 3: Construcción del Producto
+
+Ahora sí, manos a la obra. Aquí es donde tu idea se convierte en código, de forma disciplinada y profesional.
+
+=== Metodología Ágil
+
+Trabajamos en *sprints de 2 semanas*, entregando valor constantemente:
+
+* *Planning*: Define qué construir
+* *Daily standups*: Sincronización diaria
+* *Development*: Código y pruebas
+* *Review*: Demostración del progreso
+* *Retrospective*: Mejora continua
+
+=== Software Funcional por Sprint
+
+Cada sprint produce software funcional:
+
+* ✓ Código revisado (code reviews)
+* ✓ Tests que pasan
+* ✓ Documentación actualizada
+* ✓ Deploy a staging/producción
+* ✓ Listo para usuarios reales
+
+=== Stack Tecnológico Open Source
+
+Usamos tecnologías probadas, open source y con gran comunidad:
+
+.Backend
+* Node.js
+* Express
+* Firebase (Firestore, Auth, Functions)
+* TypeScript
+
+.Frontend
+* Angular
+* TypeScript
+* Tailwind CSS
+
+.DevOps
+* GitHub Actions
+* Firebase Hosting
+* CI/CD automatizado
+
+=== Control de Calidad
+
+==== Testing
+
+* Unit tests (Jest, Jasmine)
+* Integration tests
+* E2E tests (opcional)
+* Cobertura mínima objetivo: 80%
+
+==== Code Quality
+
+* Code reviews obligatorios
+* Linters (ESLint, Prettier)
+* Git conventional commits
+* Documentación en código
+
+== Etapa 4: Lanzamiento y Operación
+
+Tu producto está listo. Ahora lo ponemos en manos de usuarios reales y nos aseguramos que funcione impecablemente.
+
+=== Deployment
+
+* Infraestructura cloud configurada (Firebase)
+* CI/CD automatizado (GitHub Actions)
+* Monitoring y alertas
+* Backups automáticos
+* SSL/TLS configurado
+
+=== Monitoreo
+
+* Logs centralizados (Firebase Console)
+* Métricas de performance
+* Error tracking
+* Analytics de usuarios
+* Uptime monitoring
+
+== Etapa 5: Tu Producto Funciona
+
+¡Felicidades! Tu idea ahora es un producto real, funcionando, con usuarios. Pero el viaje continúa...
+
+=== Evolución
+
+* Feedback de usuarios
+* Nuevas features
+* Mejoras continuas
+* Escalamiento
+
+=== Crecimiento
+
+* Más colaboradores
+* Comunidad crece
+* Código open source
+* Impacto real
+
+== Proceso Detallado en UnoSportClub
+
+=== Flujo de Trabajo
+
+1. *Issue*: Se crea un issue en GitHub
+2. *Branch*: Se crea una rama para la feature
+3. *Development*: Desarrollo y tests
+4. *Pull Request*: Code review y aprobación
+5. *Merge*: Se integra a main
+6. *Deploy*: Deployment automático vía CI/CD
+
+=== Code Review
+
+Todos los cambios requieren:
+
+* Pull Request con descripción clara
+* Tests que pasan
+* Documentación actualizada
+* Aprobación de al menos un revisor
+
+=== Testing
+
+* Tests unitarios para lógica de negocio
+* Tests de integración para APIs
+* Tests manuales para UI
+* Verificación en staging antes de producción
+
+== Herramientas del Proceso
+
+=== GitHub
+
+* *Issues*: Seguimiento de tareas
+* *Projects*: Gestión de sprints
+* *Pull Requests*: Code reviews
+* *Actions*: CI/CD
+
+=== Firebase
+
+* *Firebase Console*: Monitoreo y gestión
+* *Firebase CLI*: Herramientas de desarrollo
+* *Firebase Hosting*: Deployment
+
+=== Desarrollo
+
+* *VS Code*: Editor recomendado
+* *Git*: Control de versiones
+* *npm*: Gestión de dependencias
+
+== Referencias
+
+* https://coderic.org/development/[Coderic Development - Proceso Completo]
+* <<agile-methodology,Metodología Ágil en UnoSportClub>>
+* <<tech-stack,Stack Tecnológico>>
+
+

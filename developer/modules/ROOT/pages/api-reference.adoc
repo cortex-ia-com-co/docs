@@ -1,0 +1,562 @@
+= Referencia de API
+
+Este documento describe la API REST de UnoSportClub implementada en `api/index.js` (Firebase Functions).
+
+== Base URL
+
+La API está disponible en:
+
+----
+https://[region]-[project-id].cloudfunctions.net/api
+----
+
+Para desarrollo local:
+
+----
+http://localhost:5001/[project-id]/[region]/api
+----
+
+== Autenticación
+
+Todas las peticiones requieren autenticación mediante Firebase Auth. El token debe enviarse en el header:
+
+----
+Authorization: Bearer [firebase-id-token]
+----
+
+== Endpoints
+
+=== Reservas
+
+==== GET /reservations
+
+Obtiene la lista de reservas.
+
+**Query Parameters:**
+* `client_id` (opcional): Filtrar por cliente
+* `operator_id` (opcional): Filtrar por operador
+* `court_id` (opcional): Filtrar por cancha
+* `status` (opcional): Filtrar por estado
+* `from` (opcional): Fecha desde (ISO 8601)
+* `to` (opcional): Fecha hasta (ISO 8601)
+
+**Response 200:**
+[source,json]
+----
+{
+  "data": [
+    {
+      "id": 1,
+      "operator_id": 1,
+      "client_id": 1,
+      "court_id": 1,
+      "reservation_type_id": 1,
+      "checking": "2024-01-15T10:00:00Z",
+      "checkout": "2024-01-15T12:00:00Z",
+      "notes": "Cancha 1",
+      "created_at": "2024-01-10T08:00:00Z",
+      "updated_at": "2024-01-10T08:00:00Z"
+    }
+  ],
+  "total": 1
+}
+----
+
+==== GET /reservations/:id
+
+Obtiene una reserva específica.
+
+**Response 200:**
+[source,json]
+----
+{
+  "data": {
+    "id": 1,
+    "operator_id": 1,
+    "client_id": 1,
+    "court_id": 1,
+    "reservation_type_id": 1,
+    "checking": "2024-01-15T10:00:00Z",
+    "checkout": "2024-01-15T12:00:00Z",
+    "notes": "Cancha 1",
+    "created_at": "2024-01-10T08:00:00Z",
+    "updated_at": "2024-01-10T08:00:00Z"
+  }
+}
+----
+
+==== POST /reservations
+
+Crea una nueva reserva.
+
+**Request Body:**
+[source,json]
+----
+{
+  "operator_id": 1,
+  "client_id": 1,
+  "court_id": 1,
+  "reservation_type_id": 1,
+  "checking": "2024-01-15T10:00:00Z",
+  "checkout": "2024-01-15T12:00:00Z",
+  "notes": "Cancha 1"
+}
+----
+
+**Response 201:**
+[source,json]
+----
+{
+  "data": {
+    "id": 1,
+    "operator_id": 1,
+    "client_id": 1,
+    "court_id": 1,
+    "reservation_type_id": 1,
+    "checking": "2024-01-15T10:00:00Z",
+    "checkout": "2024-01-15T12:00:00Z",
+    "notes": "Cancha 1",
+    "created_at": "2024-01-10T08:00:00Z",
+    "updated_at": "2024-01-10T08:00:00Z"
+  }
+}
+----
+
+==== PUT /reservations/:id
+
+Actualiza una reserva existente.
+
+**Request Body:**
+[source,json]
+----
+{
+  "checking": "2024-01-15T10:30:00Z",
+  "checkout": "2024-01-15T12:30:00Z",
+  "notes": "Cancha 1 - Actualizado"
+}
+----
+
+**Response 200:**
+[source,json]
+----
+{
+  "data": {
+    "id": 1,
+    "operator_id": 1,
+    "client_id": 1,
+    "court_id": 1,
+    "reservation_type_id": 1,
+    "checking": "2024-01-15T10:30:00Z",
+    "checkout": "2024-01-15T12:30:00Z",
+    "notes": "Cancha 1 - Actualizado",
+    "created_at": "2024-01-10T08:00:00Z",
+    "updated_at": "2024-01-10T09:00:00Z"
+  }
+}
+----
+
+==== DELETE /reservations/:id
+
+Elimina una reserva.
+
+**Response 204:** No Content
+
+=== Pagos
+
+Los pagos son de solo lectura. No se pueden crear, editar o eliminar desde la API.
+
+==== GET /payments
+
+Obtiene la lista de pagos.
+
+**Query Parameters:**
+* `search` (opcional): Búsqueda por transaction_id o description
+* `status` (opcional): Filtrar por estado (pending, completed, failed, refunded)
+* `reservation_id` (opcional): Filtrar por ID de reservación
+* `limit` (opcional, default: 100): Límite de resultados
+* `offset` (opcional, default: 0): Offset para paginación
+
+**Response 200:**
+[source,json]
+----
+[
+  {
+    "id": 1,
+    "reservation_id": 1,
+    "amount": 50000.00,
+    "transaction_id": "TXN-123456",
+    "gateway_response": "{\"status\":\"completed\"}",
+    "status": "completed",
+    "date": "2024-01-10T08:00:00Z",
+    "description": "Pago de reserva"
+  }
+]
+----
+
+==== GET /payments/stats
+
+Obtiene estadísticas de pagos.
+
+**Response 200:**
+[source,json]
+----
+{
+  "total": 150,
+  "by_status": {
+    "pending": 10,
+    "completed": 130,
+    "failed": 5,
+    "refunded": 5
+  },
+  "total_amount": 7500000.00,
+  "completed_amount": 6500000.00,
+  "orphan_payments": 8
+}
+----
+
+==== GET /payments/:id
+
+Obtiene un pago específico por ID.
+
+**Response 200:**
+[source,json]
+----
+{
+  "id": 1,
+  "reservation_id": 1,
+  "amount": 50000.00,
+  "transaction_id": "TXN-123456",
+  "gateway_response": "{\"status\":\"completed\"}",
+  "status": "completed",
+  "date": "2024-01-10T08:00:00Z",
+  "description": "Pago de reserva"
+}
+----
+
+==== GET /payments/transaction/:transaction_id
+
+Obtiene un pago por transaction_id.
+
+**Response 200:**
+[source,json]
+----
+{
+  "id": 1,
+  "reservation_id": 1,
+  "amount": 50000.00,
+  "transaction_id": "TXN-123456",
+  "status": "completed",
+  "date": "2024-01-10T08:00:00Z"
+}
+----
+
+=== Disponibilidad
+
+==== GET /availability
+
+Consulta la disponibilidad de canchas en un rango de fechas.
+
+**Query Parameters:**
+* `court_id` (opcional): Filtrar por cancha específica
+* `from` (requerido): Fecha desde (ISO 8601)
+* `to` (requerido): Fecha hasta (ISO 8601)
+* `court_type_id` (opcional): Filtrar por tipo de cancha
+
+**Response 200:**
+[source,json]
+----
+{
+  "data": [
+    {
+      "court_id": 1,
+      "court_name": "Cancha 1",
+      "date": "2024-01-15",
+      "available_slots": [
+        {
+          "start": "10:00:00",
+          "end": "12:00:00",
+          "available": true
+        },
+        {
+          "start": "14:00:00",
+          "end": "16:00:00",
+          "available": false
+        }
+      ]
+    }
+  ]
+}
+----
+
+=== Clientes
+
+==== GET /clients
+
+Obtiene la lista de clientes con información complementaria de la tabla `user`.
+
+**Query Parameters:**
+* `search` (opcional): Búsqueda por email o display_name
+* `client_type_id` (opcional): Filtrar por tipo de cliente
+* `limit` (opcional, default: 100): Límite de resultados
+* `offset` (opcional, default: 0): Offset para paginación
+
+**Response 200:**
+[source,json]
+----
+[
+  {
+    "id": 1,
+    "user_id": "firebase-uid-123",
+    "client_type_id": 1,
+    "email": "cliente@example.com",
+    "display_name": "Juan Pérez",
+    "email_verified": true,
+    "client_type_name": "Regular"
+  }
+]
+----
+
+==== GET /clients/:id
+
+Obtiene un cliente específico por ID.
+
+**Response 200:**
+[source,json]
+----
+{
+  "id": 1,
+  "user_id": "firebase-uid-123",
+  "client_type_id": 1,
+  "email": "cliente@example.com",
+  "display_name": "Juan Pérez",
+  "email_verified": true,
+  "client_type_name": "Regular"
+}
+----
+
+==== POST /clients
+
+Crea un nuevo cliente.
+
+**Request Body:**
+[source,json]
+----
+{
+  "user_id": "firebase-uid-123",
+  "client_type_id": 1
+}
+----
+
+**Response 201:**
+[source,json]
+----
+{
+  "id": 1,
+  "user_id": "firebase-uid-123",
+  "client_type_id": 1,
+  "email": "cliente@example.com",
+  "display_name": "Juan Pérez",
+  "email_verified": true,
+  "client_type_name": "Regular"
+}
+----
+
+==== PATCH /clients/:id
+
+Actualiza un cliente existente (solo permite actualizar `client_type_id`).
+
+**Request Body:**
+[source,json]
+----
+{
+  "client_type_id": 2
+}
+----
+
+==== DELETE /clients/:id
+
+Elimina un cliente.
+
+=== Canchas
+
+==== GET /courts
+
+Obtiene la lista de canchas con información del tipo.
+
+**Query Parameters:**
+* `search` (opcional): Búsqueda por nombre
+
+**Response 200:**
+[source,json]
+----
+[
+  {
+    "id": 1,
+    "court_type_id": 1,
+    "name": "Cancha 1",
+    "cost": 10000.00,
+    "price": 50000.00,
+    "court_type_name": "Fútbol"
+  }
+]
+----
+
+==== GET /courts/:id
+
+Obtiene una cancha específica por ID.
+
+==== POST /courts
+
+Crea una nueva cancha.
+
+**Request Body:**
+[source,json]
+----
+{
+  "name": "Cancha 1",
+  "court_type_id": 1,
+  "cost": 10000.00,
+  "price": 50000.00
+}
+----
+
+==== PATCH /courts/:id
+
+Actualiza una cancha existente.
+
+==== DELETE /courts/:id
+
+Elimina una cancha.
+
+=== Dashboard
+
+==== GET /dashboard/stats
+
+Obtiene estadísticas generales del dashboard.
+
+**Response 200:**
+[source,json]
+----
+{
+  "clients": {
+    "total": 50,
+    "verified": 45,
+    "unverified": 5
+  },
+  "courts": {
+    "total": 10
+  },
+  "reservations": {
+    "total": 200,
+    "today": 5,
+    "this_week": 25,
+    "this_month": 80
+  },
+  "payments": {
+    "total": 150,
+    "total_amount": 7500000.00,
+    "completed_amount": 6500000.00,
+    "pending": 10
+  },
+  "recent_reservations": [
+    {
+      "id": 1,
+      "checking": "2024-01-15T10:00:00Z",
+      "checkout": "2024-01-15T12:00:00Z",
+      "created_at": "2024-01-10T08:00:00Z",
+      "court_name": "Cancha 1",
+      "client_email": "cliente@example.com",
+      "client_name": "Juan Pérez"
+    }
+  ],
+  "recent_payments": [
+    {
+      "id": 1,
+      "amount": 50000.00,
+      "transaction_id": "TXN-123456",
+      "status": "completed",
+      "date": "2024-01-10T08:00:00Z",
+      "description": "Pago de reserva",
+      "reservation_id": 1
+    }
+  ]
+}
+----
+
+== Códigos de Estado HTTP
+
+* `200 OK`: Petición exitosa
+* `201 Created`: Recurso creado exitosamente
+* `204 No Content`: Recurso eliminado exitosamente
+* `400 Bad Request`: Error en la petición (validación fallida)
+* `401 Unauthorized`: No autenticado o token inválido
+* `403 Forbidden`: No autorizado para realizar la acción
+* `404 Not Found`: Recurso no encontrado
+* `500 Internal Server Error`: Error del servidor
+
+== Manejo de Errores
+
+Todas las respuestas de error siguen el formato:
+
+[source,json]
+----
+{
+  "error": {
+    "code": "ERROR_CODE",
+    "message": "Descripción del error",
+    "details": {}
+  }
+}
+----
+
+Ejemplo:
+
+[source,json]
+----
+{
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Los campos requeridos no están presentes",
+    "details": {
+      "fields": ["court_id", "checking"]
+    }
+  }
+}
+----
+
+== Webhooks
+
+El sistema expone webhooks para notificaciones de eventos:
+
+=== POST /webhooks/payment
+
+Webhook para recibir notificaciones de pagos del gateway.
+
+**Request Body:**
+[source,json]
+----
+{
+  "transaction_id": "TXN-123456",
+  "amount": 50000.00,
+  "status": "completed",
+  "gateway_response": "{\"status\":\"completed\"}",
+  "date": "2024-01-10T08:00:00Z"
+}
+----
+
+El sistema procesará el webhook y:
+1. Buscará si existe un pago con ese `transaction_id`
+2. Si no existe, creará un pago huérfano
+3. Si existe y tiene `reservation_id`, actualizará el estado
+4. Si existe sin `reservation_id`, lo mantendrá como huérfano hasta que se alinee
+
+**Response 200:**
+[source,json]
+----
+{
+  "status": "processed",
+  "payment_id": 1,
+  "aligned": false
+}
+----
+

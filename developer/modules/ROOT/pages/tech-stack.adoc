@@ -1,0 +1,180 @@
+= Stack Tecnológico
+
+El stack tecnológico de UnoSportClub está basado en tecnologías open source modernas y probadas. Esta sección detalla las tecnologías utilizadas en frontend, backend, datos y cloud.
+
+== Frontend
+
+El frontend de UnoSportClub está construido con tecnologías modernas y reactivas.
+
+=== Framework Principal
+
+* *Angular*: Framework principal para aplicaciones web
+* *TypeScript*: Superset de JavaScript con tipado estático
+* *HTML5/CSS3*: Estándares web modernos
+
+=== Estilos y UI
+
+* *Tailwind CSS*: Framework CSS utility-first
+* *SCSS/SASS*: Preprocesador CSS
+* *Responsive Design*: Mobile-first approach
+* *Progressive Web Apps (PWA)*: Capacidades nativas en web
+
+=== Herramientas Frontend
+
+* *Angular CLI*: Herramientas de línea de comandos
+* *RxJS*: Programación reactiva
+* *Angular Material*: Componentes de UI (opcional)
+
+== Backend
+
+El backend está construido con Node.js y Express.
+
+=== Runtime y Framework
+
+* *Node.js*: Runtime de JavaScript en el servidor
+* *Express*: Framework web minimalista
+* *Firebase Functions*: Funciones serverless
+
+=== APIs y Comunicación
+
+* *RESTful APIs*: Arquitectura REST
+* *JSON*: Formato de intercambio de datos
+* *Middleware*: Procesamiento de peticiones
+
+=== Rutas y Endpoints
+
+El backend está estructurado en:
+
+* `functions/routes/` - Rutas de la API
+* `functions/services/` - Servicios de negocio
+* `functions/middleware/` - Middleware personalizado
+
+== Base de Datos y Cloud
+
+UnoSportClub utiliza Firebase como plataforma cloud.
+
+=== Firebase Services
+
+* *Firebase Auth*: Autenticación y autorización
+* *Firebase Functions*: Lógica del servidor
+* *Firebase Hosting*: Hosting estático
+
+=== Características
+
+* Escalabilidad automática
+* Autenticación integrada
+* Hosting global
+
+== DevOps y Herramientas
+
+=== Control de Versiones
+
+* *Git*: Sistema de control de versiones
+* *GitHub*: Repositorio y colaboración
+* *Git Submodules*: Gestión de dependencias
+
+=== CI/CD
+
+* *GitHub Actions*: Automatización de workflows
+* *Testing automatizado*: Tests unitarios e integración
+* *Deployment automatizado*: Despliegue continuo
+
+=== Herramientas de Desarrollo
+
+* *npm*: Gestor de paquetes Node.js
+* *Angular CLI*: Herramientas de desarrollo
+* *Firebase CLI*: Herramientas de Firebase
+
+== Estructura del Stack
+
+[source,asciidoc]
+----
+┌─────────────────────────────────────┐
+│          Frontend (Angular)         │
+│  TypeScript + Tailwind CSS + SCSS   │
+└──────────────┬──────────────────────┘
+               │
+               │ HTTP/REST
+               │
+┌──────────────▼──────────────────────┐
+│      Backend (Node.js/Express)      │
+│     Firebase Functions + Routes     │
+└──────────────┬──────────────────────┘
+               │
+               │ SDK
+               │
+┌──────────────▼──────────────────────┐
+│         Firebase Platform            │
+│  Firestore + Auth + Storage + Hosting│
+└─────────────────────────────────────┘
+----
+
+== Stack Recomendado por Coderic
+
+Según https://coderic.org/development/[Coderic Development], el stack recomendado incluye:
+
+=== Backend
+
+* Node.js / Express / NestJS
+* Python / Django / FastAPI
+* Go / Fiber
+* PostgreSQL / MongoDB
+* Redis para caching
+
+=== Frontend
+
+* React / Next.js
+* Vue.js / Nuxt.js
+* TypeScript
+* Tailwind CSS
+* Zustand / Pinia
+
+=== DevOps
+
+* Docker / Docker Compose
+* GitHub Actions
+* Nginx
+* Grafana / Prometheus
+* Let's Encrypt
+
+== Tecnologías Específicas de UnoSportClub
+
+=== Dependencias Principales
+
+Consulta `package.json` para ver las dependencias exactas:
+
+* Angular y sus dependencias
+* Firebase SDK
+* Express y middleware
+* Librerías de utilidades
+
+=== Versiones
+
+Las versiones específicas están documentadas en:
+
+* `package.json` - Dependencias del proyecto
+* `package-lock.json` - Versiones exactas bloqueadas
+
+== Actualización del Stack
+
+=== Política de Actualizaciones
+
+* Actualizaciones de seguridad prioritarias
+* Actualizaciones menores regulares
+* Actualizaciones mayores con evaluación
+* Testing exhaustivo antes de actualizar
+
+=== Compatibilidad
+
+* Mantener compatibilidad con versiones anteriores cuando sea posible
+* Documentar breaking changes
+* Proporcionar guías de migración
+
+== Referencias
+
+* https://coderic.org/development/[Coderic Development]
+* https://angular.io/[Angular Documentation]
+* https://firebase.google.com/[Firebase Documentation]
+* https://expressjs.com/[Express Documentation]
+
+

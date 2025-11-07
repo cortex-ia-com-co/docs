@@ -1,0 +1,119 @@
+= Metodología de Desarrollo Ágil
+
+Las metodologías ágiles (Scrum, Kanban) permiten entregar valor de forma iterativa e incremental. Aprende a organizar tu proyecto en sprints, mantener comunicación constante con tu equipo y adaptarte rápidamente a los cambios.
+
+== Desarrollo Ágil
+
+No estás solo. Te acompañamos desde tu idea hasta tener un producto funcionando. Con orientación, estructura, metodología y la disciplina necesaria para que tu proyecto se haga realidad.
+
+=== Características del Desarrollo Ágil
+
+* ✓ Sprints de desarrollo de 2-4 semanas
+* ✓ Reuniones diarias de sincronización
+* ✓ Revisiones y retrospectivas constantes
+* ✓ Entrega continua de valor
+
+== Scrum
+
+Scrum es un framework ágil que estructura el desarrollo en sprints iterativos.
+
+=== Roles en Scrum
+
+* *Product Owner*: Define el backlog y prioriza las features
+* *Scrum Master*: Facilita el proceso y elimina impedimentos
+* *Equipo de Desarrollo*: Construye el producto
+
+=== Eventos Scrum
+
+==== Sprint Planning
+
+Define qué construir en el próximo sprint (2-4 semanas).
+
+* Establecer objetivo del sprint
+* Seleccionar items del backlog
+* Estimar tareas
+* Compromiso del equipo
+
+==== Daily Standup
+
+Reunión diaria de sincronización (15 minutos).
+
+* ¿Qué hice ayer?
+* ¿Qué haré hoy?
+* ¿Tengo algún impedimento?
+
+==== Sprint Review
+
+Demostración del progreso al final del sprint.
+
+* Mostrar software funcional
+* Obtener feedback
+* Ajustar prioridades
+
+==== Sprint Retrospective
+
+Mejora continua del proceso.
+
+* ¿Qué salió bien?
+* ¿Qué se puede mejorar?
+* Plan de acción
+
+== Kanban
+
+Kanban es un método visual para gestionar el flujo de trabajo.
+
+=== Principios Kanban
+
+* Visualizar el trabajo
+* Limitar el trabajo en progreso (WIP)
+* Gestionar el flujo
+* Hacer explícitas las políticas
+* Mejorar colaborativamente
+
+=== Tablero Kanban
+
+Típicamente incluye columnas:
+
+* *Backlog*: Tareas pendientes
+* *To Do*: Listas para empezar
+* *In Progress*: En desarrollo
+* *Review*: En revisión
+* *Done*: Completadas
+
+== Metodología Ágil en UnoSportClub
+
+Nuestro proceso de desarrollo sigue estos principios:
+
+=== Sprints de 2 Semanas
+
+Cada sprint produce software funcional:
+
+* ✓ Código revisado (code reviews)
+* ✓ Tests que pasan
+* ✓ Documentación actualizada
+* ✓ Deploy a staging/producción
+* ✓ Listo para usuarios reales
+
+=== Herramientas
+
+* GitHub Projects para gestión de proyectos
+* Issues para seguimiento de tareas
+* Pull Requests para code reviews
+* GitHub Actions para CI/CD
+
+== Entrega Continua de Valor
+
+Cada iteración debe entregar:
+
+* Funcionalidad nueva y probada
+* Código de calidad
+* Documentación actualizada
+* Software desplegado y funcionando
+
+== Referencias
+
+* https://coderic.org/development/[Coderic Development]
+* https://scrum.org/[Scrum.org]
+* https://kanban.university/[Kanban University]
+
+

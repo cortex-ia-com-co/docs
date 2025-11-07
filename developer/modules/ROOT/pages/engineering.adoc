@@ -1,0 +1,259 @@
+= Ingeniería de Software
+
+Guías técnicas, herramientas y metodologías que puedes usar en tu proyecto UnoSportClub.
+
+== Análisis y Diseño
+
+Herramientas para planificar y diseñar la arquitectura de tu proyecto.
+
+=== Diagramas UML
+
+Casos de uso y requerimientos, diagramas de clases, secuencia y actividad, componentes y despliegue.
+
+**Herramientas:** draw.io, PlantUML, Mermaid
+
+==== Diagrama de Secuencia: Flujo de Reserva
+
+Ejemplo de diagrama de secuencia del flujo completo de reserva en UnoSportClub:
+
+[.text-center]
+[role="diagram-clickable"]
+image::https://kroki.io/plantuml/svg/eJydVsGO1DAMvfcrDGdGIA4c5oB2NSwSEiyIRXD2pJ4Za9K4OCns8vUoaZtkZrqAuKWJ_Wy_PDu98gE1DJ1tnoQDdQS9RXaNP7LrUbEDT98HcoauVeXnlwOboyPv4WVlojK41og6Unj5ojro8L4j73FPnn8RvHrRNGiCKGwskwsE6Odls40gqA9wxz5Qh_FsWpazp9c-bkXXz-RJf-DTaJd3p83isEFLccWSYuWvxogLKhbesO_F8ZYtt9hGo9OdbDhBazSZ1_nwG23vxBwpxNP8kY8_4X50TIuJg489KbaS9ud19pgqMoxVfYaxaWbqVq9netZw44LGABY8B5ZFm41lcwRyJfmZ6NXrCwLX8EH8iJkJbwl0ovfcPEJMMYvnTrQbbKLeoAuJXoPOHNA3TgKB8v4QQHYL0W_ue8sGDYtbQ0_qxaGHXnRCqCu89L4jSyb6opbQLeXoS-mf3voaNuL8YAMqtKd6OBPMajGDzxRE3aXzInFZlIU7U2TrqUOH9oyy2untYO38DUbcedCKq9qtZmlH5oDwAAdRbKqeWSzubTR-Hk3BZ4x2WRXntH4l5R0bnC_S52Qt-X_j9j37gNV1niD8hzKTJP6opze0Y8cKFnsvMXJg6npZDDZ31xo2Sqi5ZfL4eEwwI4LSnmOSj9B5UUqLQXxMqcf9ckIXLga7XsANHalEuexYu9RpI0bFRJpWa3jn9koe9XGfapLk4ZdaiEzsoDIQy5ws8DfeDOaQqEq1Sy6nQRuilRRaBNAFShVP2fCYXSsNAEyT9jSPM4Rkd5JInpG3EiZ19qOP4S230pD1BLdn8Uom_UKASxpvF9j7e_I3Pj4Nsa_ZGW7HR4Bc2zTZesLfSBdf3XxNSjvS0f7StIABufToRMllu0rF2G0ZFciHVDMY6fpkfKLorLJZeXOZLY6TS35Qfvaf5fdunXmylvYICBYXRny-oDuxbDhqanMgc1yxq7VXUMtF-tFjaItHfnhLJxpOPTjeoEIfuzaRY6a_k-o9Xp1EmlFLwVIFqJmpIKouvyLXDp39DQAYae0[Diagrama de Secuencia: Flujo de Reserva,role="diagram-clickable",width=100%]
+
+==== Diagrama de Secuencia: Flujo de Reserva (Operador)
+
+Ejemplo de diagrama de secuencia del flujo de reserva realizado por un operador en UnoSportClub:
+
+[.text-center]
+[role="diagram-clickable"]
+image::https://kroki.io/plantuml/svg/eJydVU2P0zAQvftXDNxXIA4cekCsyiIhwYJ2EZynzrQdreMJYwcWfj2yk9hJmwLi5o83X89vxq9DRI1968yTeKSWoHPI3oQH9h0qthDoW0_e0rWq_Ph8ZPvgKQR4MYOo9L6xop4UXjyfXbT42FIIeKDAvwhePjcGbRSFjx0pNqKAoazNLrlB_Qn3HCK1mC7HZb17eh3SkY8EdxRIv-PThCun42E12KKjtGJJuLozVnxUcfCGQyeed-y4wSaBlicFOLrOSU_rcvmVdvdiHyim27Ip15_wMBjmRTke07aMsyIsozGFoatXEwkbuLaWGlJAB2EkZhW3VUIFHXKE9BZgHSd6zMTt1aszzjbwQULUnOfEcUOTG3MKTy6m6NV0L9r2LtNt0cdMqUVvjxiMl0igfDhGkP1K-JvHzrFFy-I30JEG8RigEx09LIo9N78nRzYZo9bYDZXwawUsn3oDW_GhdxEVmqUITlRytZrBHUVRf268FrkqsZJnq1YDtejRnXA2N3rbOzftwYo_DTona243p2lP9ojwE46iaGadslrd2wR-lqAQio9mXRinvH4h5T1bnJ4ylGwdhX8j9z2HiLP3XHj4H3FmUfxZUm9oz54VHHZBUuzI1HayGm4aCSftZ8rYuKSZwYPSgVOWFwg9L6bBKCHl1OFhPaNzG4ttJ-D7llSSZvasbe63wcmcjDyoNvDOH5QC6mWj2UQpcy83EtnUR3UW1hFZ3d8E29tjZiuXL6Uggy4mlFRmBNBHyjWP2fCQXSMGAMYhu8zjxEPGLRIpQ_NW4ijRbrCxvONGDLlAcHsSr2bSrQRY4fF2hb6_Z38TkqfU3uwtN8PfQL4xpqBH_1tp05wv76S0Jx3w59DqDMjnvyjJruBmSsZ2x6hAIeaiwUrbZfBC1VVok_qmOhscJph8J53BtsNvBM7RAQHB4dqIL09zL44tJzVtj2QfrtjPVXcuc-kyvwW80uSWc-8Nz6bQpW7NhEwf5exrXpY4ea01yoXfunqYNfdr8k3fut-FdWaP[Diagrama de Secuencia: Flujo de Reserva (Operador),role="diagram-clickable",width=100%]
+
+=== Modelado de Datos
+
+Diseño de esquemas relacionales, normalización de bases de datos, modelado NoSQL, migraciones y versionado.
+
+**Herramientas:** dbdiagram.io, Firestore Data Modeler
+
+==== Modelo de Datos: UnoSportClub
+
+El modelo de datos está centrado en la entidad RESERVATION. La base de datos es PostgreSQL y se accede a través de una API REST mediante funciones en `api/index.js`.
+
+[.text-center]
+[role="diagram-clickable"]
+image::https://kroki.io/plantuml/svg/eJy1VU1v2zAMvftXcD51xQJ0BXoxiqJe6mzemjhwnGI9GarNJFptyZDkDkHT_174I6ni2KmBbleRFB8fycdrqYhQeZoYn9QKU4QsIZQZ8pGyjAiSQkIZqnWGwIVaccNApqhag-k7M8e_swPXm5hAJAiUKJ6IopzBswFwCjQGC9xJ4Hx3fLi8nP66ujIABoPSyDMURHERNrxGldcpRAlFprrNPBfdVg1MWIDvcIxWGD1StgQLAnfszAJ7PN0-81w1nhlXKIs353dQZsmzmCiMQ9L0PIVIYJvppZW_MLifOk0SS9x9mGQkRbDgzvaHP2z_5Pzi4rMBEKOMBM3KdtSQteTe1PHtwPPLpNtW9EmWS6xbpufbMqplGN66ziQo_686-fHftano7OkBgjdutdD_RevQm_t1zcV49klTzfGRGe1CUoTKYrpunKE7tm9Pvp59Oa8MmaARHliaODVmdhj-KTH99mBq34-3k5KRddprVPQ96aKNpDxn7QQpQZgk0Vt4o5glUfiXrEOBMuNMol6RVETlUou5OKs-LbSgoQPHp-XGnQ29eV16TGVU4u3RgQ9Ur6UPbN8djUL75ud8FuxaoIigi0VI4j-5VP2acUyK39tX6CvVQuQJ7rFe0h6r8n41eVfI4gNN1mpqdq9jeqkMiyl5KhJ_87xbx54cm-ojN0HjfT5zKt0t1E5nt6F5-z3HlNCkTQVKQ_iEgi4oxntAYyqzhKzDLgFZUIEPRGLLDrwYhn7QX_hgsNm8XQoLzAdMOFtKUNxsc61Fv4djqZQWmLlE2epxcBQtMFfFqK4z3A_YbAYD_ryTkcqv1WW3blsfY1dbnbXsjgUmlaZRF_OuRT8xeyCNqkq95Davw-UrIrhGEsmyhGJFZrf3PoxeMW0k64HGNbI4T5NXBnIBrw[Modelo de Datos: UnoSportClub,role="diagram-clickable",width=100%]
+
+
+==== Entidades Principales
+
+* *RESERVATION*: Entidad central que representa una reserva de cancha
+* *RESERVATION_TYPE*: Tipos de reserva disponibles
+* *OPERATOR*: Operadores del sistema
+* *CLIENT*: Clientes que realizan reservas
+* *CLIENT_TYPE*: Tipos de cliente
+* *COURT*: Canchas disponibles para reservar (con campos `cost` y `price`)
+* *COURT_TYPE*: Tipos de cancha
+* *PAYMENT*: Pagos asociados a reservas. Puede existir sin reservación asignada (pagos huérfanos). El webservice registra pagos recibidos sin conocer la reservación, y luego cuando el usuario está pagando, si encuentra el pago huérfano, lo alinea con la reservación.
+* *DISCOUNT*: Descuentos aplicados a reservas
+* *TARIFF_ADJUSTMENT*: Ajustes de tarifas aplicables según tipo de cliente, tipo de reserva y rangos de fechas/horas (RFC 5545)
+* *USER*: Usuarios del sistema (interfaz con Firebase Auth)
+
+=== Arquitectura de Software
+
+* Diagramas de componentes
+* Arquitectura de capas
+* Patrones de diseño
+* Microservicios vs Monolito
+
+== Stack Tecnológico Recomendado
+
+Tecnologías open source que usamos en UnoSportClub y recomendadas por https://coderic.org/development/[Coderic Development].
+
+=== Backend
+
+* Node.js / Express / NestJS
+* Python / Django / FastAPI
+* Go / Fiber
+* PostgreSQL / MongoDB / Firestore
+* Redis para caching
+
+=== Frontend
+
+* React / Next.js
+* Vue.js / Nuxt.js
+* Angular (nuestro framework)
+* TypeScript
+* Tailwind CSS
+* Zustand / Pinia / RxJS
+
+=== DevOps
+
+* Docker / Docker Compose
+* GitHub Actions
+* Nginx
+* Grafana / Prometheus
+* Let's Encrypt
+* Firebase (nuestra plataforma)
+
+== Guías y Estándares
+
+Buenas prácticas que seguimos en todos nuestros proyectos.
+
+=== Código Limpio
+
+* SOLID principles
+* DRY (Don't Repeat Yourself)
+* KISS (Keep It Simple, Stupid)
+* YAGNI (You Aren't Gonna Need It)
+
+=== Conventional Commits
+
+Formato estándar para mensajes de commit:
+
+[source]
+----
+<type>(<scope>): <subject>
+
+<body>
+
+<footer>
+----
+
+Tipos comunes:
+* `feat`: Nueva feature
+* `fix`: Corrección de bug
+* `docs`: Documentación
+* `style`: Formato
+* `refactor`: Refactorización
+* `test`: Tests
+* `chore`: Tareas de mantenimiento
+
+=== Semantic Versioning
+
+Versionado semántico: `MAJOR.MINOR.PATCH`
+
+* *MAJOR*: Cambios incompatibles
+* *MINOR*: Nuevas features compatibles
+* *PATCH*: Correcciones compatibles
+
+== Seguridad (OWASP)
+
+Seguimos las mejores prácticas de seguridad definidas por OWASP.
+
+=== OWASP Top 10
+
+* A01:2021 – Broken Access Control
+* A02:2021 – Cryptographic Failures
+* A03:2021 – Injection
+* A04:2021 – Insecure Design
+* A05:2021 – Security Misconfiguration
+* A06:2021 – Vulnerable Components
+* A07:2021 – Authentication Failures
+* A08:2021 – Software and Data Integrity Failures
+* A09:2021 – Security Logging Failures
+* A10:2021 – Server-Side Request Forgery
+
+=== Implementación en UnoSportClub
+
+* Autenticación segura (Firebase Auth)
+* Autorización basada en roles
+* Validación de inputs
+* Protección CSRF
+* HTTPS obligatorio
+* Dependency scanning
+
+== Testing
+
+=== Tipos de Tests
+
+* *Unit Tests*: Pruebas de unidades individuales
+* *Integration Tests*: Pruebas de integración entre componentes
+* *E2E Tests*: Pruebas end-to-end de flujos completos
+* *Performance Tests*: Pruebas de rendimiento
+
+=== Herramientas
+
+* Jest / Jasmine para unit tests
+* Supertest para API testing
+* Playwright / Cypress para E2E (opcional)
+
+== Documentación
+
+=== Documentación de Código
+
+* JSDoc para JavaScript/TypeScript
+* Comentarios descriptivos
+* README actualizado
+* CHANGELOG mantenido
+
+=== Documentación de API
+
+* Endpoints documentados
+* Ejemplos de uso
+* Parámetros y respuestas
+* Códigos de error
+
+== Gestión de Código
+
+=== Git Workflow
+
+* Feature branches
+* Pull requests obligatorios
+* Code reviews
+* Merge a main después de aprobación
+
+=== Gestión de Dependencias
+
+* `package.json` con versiones
+* `package-lock.json` para versiones exactas
+* Actualizaciones regulares de seguridad
+* Auditoría de vulnerabilidades
+
+== Herramientas Recomendadas
+
+=== Desarrollo
+
+* VS Code con extensiones
+* Git para control de versiones
+* npm para gestión de paquetes
+* Firebase CLI para desarrollo
+
+=== Diseño
+
+* Figma para diseño UI/UX
+* draw.io para diagramas
+* Mermaid para diagramas en código
+
+=== Testing
+
+* Jest para unit tests
+* Supertest para API tests
+* Firebase Emulator Suite
+
+=== DevOps
+
+* GitHub Actions para CI/CD
+* Firebase Console para monitoreo
+* Sentry para error tracking (opcional)
+
+== Recursos de Aprendizaje
+
+=== Repositorios Educativos
+
+Explora nuestros repositorios con ejemplos, templates y guías:
+
+* https://github.com/Coderic[GitHub Coderic]
+
+=== Comunidad y Soporte
+
+Pregunta, discute y colabora con otros desarrolladores:
+
+* https://coderic.org/[Coderic Community]
+
+== Referencias
+
+* https://coderic.org/development/[Coderic Development - Recursos]
+* https://owasp.org/[OWASP]
+* https://semver.org/[Semantic Versioning]
+* https://www.conventionalcommits.org/[Conventional Commits]
+
+
